@@ -1,0 +1,7 @@
+/Users/apple/Projects/MatApp/MatApp.UITests/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/apple/Projects/MatApp/MatApp.UITests/bin/Debug/MatApp.UITests.dll.mdb
+/Users/apple/Projects/MatApp/MatApp.UITests/bin/Debug/MatApp.UITests.dll
+/Users/apple/Projects/MatApp/MatApp.UITests/obj/Debug/MatApp.UITests.dll
+/Users/apple/Projects/MatApp/MatApp.UITests/obj/Debug/MatApp.UITests.dll.mdb
+/Users/apple/Projects/MatApp/MatApp.UITests/bin/Debug/nunit.framework.dll
+/Users/apple/Projects/MatApp/MatApp.UITests/bin/Debug/Xamarin.UITest.dll

@@ -1,0 +1,10 @@
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/MatApp.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/System.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/System.Xml.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/Mono.Android.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/Xamarin.Insights.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/System.Core.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/mscorlib.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/System.Runtime.Serialization.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/System.ServiceModel.Internals.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/assemblies/System.Net.Http.dll
