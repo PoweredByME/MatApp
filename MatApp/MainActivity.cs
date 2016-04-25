@@ -4,25 +4,35 @@ using Android.OS;
 using StringWatch;
 using System;
 using System.Collections.Generic;
+using Android.Views;
+using theAndroidInterface;
+using virtualUnderstander;
 
 namespace MatApp
 {
 	[Activity (Label = "MatApp", MainLauncher = true, Icon = "@mipmap/icon")]
 	public class MainActivity : Activity
 	{
-		EditText input;
-		TextView output;
 		Button enterSolve;
+		EditText theStringInput;
+	 	TextView theErrorOutput;
+		ListView theSolutionOutput;
+
 		StringObserver sol;
 		string theInput;
 
 		void androidSetup()
 		{
-			input = FindViewById<EditText> (Resource.Id.editText2);
-			output = FindViewById<TextView> (Resource.Id.textView1);
-			enterSolve = FindViewById<Button> (Resource.Id.button1);
-			enterSolve.Text = "Solve";
+			enterSolve = FindViewById<Button> (Resource.Id.enterSolve);
+			theStringInput = FindViewById<EditText> (Resource.Id.TheInput);
+			theErrorOutput = FindViewById<TextView> (Resource.Id.theErrorOutput);
+			theSolutionOutput = FindViewById<ListView> (Resource.Id.OutputListView);
+			AndroidInterface.OutputListView = theSolutionOutput;
+			AndroidInterface.theContext = this;
+			theErrorOutput.Text = "Welcome!";
 			sol = new StringObserver();
+			sol.messageOnSolved = "Success";
+			vUnderstander.messageOnFound = "Found";
 			theInput = string.Empty;
 		}
 
@@ -34,9 +44,9 @@ namespace MatApp
 			SetContentView (Resource.Layout.Main);
 			androidSetup ();
 
-			enterSolve.Click += (object sender, EventArgs e) => 
+			enterSolve.Click += (object sender, EventArgs e) =>  
 			{
-				androidProcess();
+				androidMatAppProcess ();
 			};
 
 		}    // end method on create
@@ -46,14 +56,15 @@ namespace MatApp
 		/// Androids the process. 
 		/// the Process that happens on the 
 		/// click of th buttom
+		/// IT send the input to the control of the app
 		/// </summary>
-		void androidProcess()
+	
+		void androidMatAppProcess()
 		{
-			theAndroidInterface.AndroidInterface.setAndroidTextView (output);
-			theInput = input.Text;
+			AndroidInterface.theMessageOutputFeild = theErrorOutput;
+			theInput = theStringInput.Text;
+			theStringInput.Text = "";
 			sol.setString(theInput);
-			theInput = "";
-			input.Text = "";
 			ProcessStringObserverAndPrintExpression (sol);
 		}
 
@@ -61,24 +72,20 @@ namespace MatApp
 		/// <summary>
 		///   Process for solution code.
 		/// </summary>
+
 		void ProcessStringObserverAndPrintExpression(StringObserver sol)
 		{
-			try
-			{
+			try{
 				sol.Process();
-			}
-			catch 
-			{
-				TheMessageHandler.MessagePrinter.Print("Something went wrong");
+			}catch {
+				TheMessageHandler.MessagePrinter.Print("Invalid Formate");
 			}
 			try
 			{
 				sol.Printer();
-			}
-			catch
-			{
-				TheMessageHandler.MessagePrinter.Print("Something went wrong");
-			}
+			}catch{}
+
+			
 		}
 
 	}  // end class MainActivity.

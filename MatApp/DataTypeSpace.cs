@@ -520,7 +520,6 @@ namespace DataTypeSpace
 				Console.WriteLine ($"{theExpression.getTag()} = ");
 				MatrixOutput.Print (theExpression.getMatrix ());
 			} else if (expType == 2) {
-				//Console.WriteLine ($"{theExpression.getTag()} = {theExpression.getNumber().getNumber()}");
 				TheMessageHandler.MessagePrinter.NumberPrinter($"{theExpression.getTag()} = {theExpression.getNumber().getNumber()}");
 			}
 		}

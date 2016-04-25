@@ -158,6 +158,8 @@ namespace virtualUnderstander
 			return fished;
 		}
 
+		static public string messageOnFound;
+
 		bool SearchList(string exp)   // searches the list for queried variable and returns a bool if found = true and 
 		{		                              // false if not found
 			bool found = false;
@@ -165,6 +167,7 @@ namespace virtualUnderstander
 				if (x.getTag () == exp) {
 					ExpressionPrinter p = new ExpressionPrinter (x);
 					p.Print ();
+					TheMessageHandler.MessagePrinter.Print (messageOnFound);
 					found = true;
 					break;
 				}

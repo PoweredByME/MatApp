@@ -3,27 +3,55 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100">
-    <TextView
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_weight="20"
-        android:id="@+id/textView1" />
-    <EditText
+    android:weightSum="100"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        androidLlayout_weight="20"
-        android:id="@+id/editText2" />
-    <Button
-        android:text="Button"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
         android:layout_weight="10"
-        android:id="@+id/button1" />
+        android:id="@+id/linearLayout1"
+        android:weightSum="100">
+        <EditText
+            android:id="@+id/TheInput"
+            android:layout_width="match_parent"
+            android:layout_weight="80"
+            android:background="@android:color/white"
+            android:textColor="@android:color/black"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp" />
+        <Button
+            android:id="@+id/enterSolve"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:text="Go"
+            android:layout_marginTop="5dp" />
+    </LinearLayout>
     <LinearLayout
-        android:layout_weight="50"
+        android:id="@+id/linearLayout2"
+        android:orientation="vertical"
+        android:layout_weight="90"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:weightSum="100">
+        <TextView
+            android:id="@+id/theErrorOutput"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            android:background="@android:color/darker_gray"
+            android:layout_margin="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textAlignment="center"
+            android:text="Text" />
+        <ListView
+            android:id="@+id/OutputListView"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+    </LinearLayout>
 </LinearLayout>

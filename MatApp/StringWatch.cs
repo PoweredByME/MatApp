@@ -90,11 +90,12 @@ namespace StringWatch
 
 		/// ///////////////////////////////////////////////////////////////////////////
 
-
+		public string messageOnSolved;
 		private static int counter = 0;   
 	    public void Printer() // printes the expressions of the Expression List 
 		{
 			if (printExp) {
+				TheMessageHandler.MessagePrinter.Print (messageOnSolved);
 				ExpressionPrinter x = new ExpressionPrinter (theExpressionList [counter]);
 				x.Print ();
 				counter++;
@@ -104,7 +105,7 @@ namespace StringWatch
 
 		void autoDestroyer()
 		{
-			if (counter != 0 && counter % 50 == 0) {
+			if (counter != 0 && counter % 100 == 0) {
 				theExpressionList.RemoveRange (0, 15);
 				counter -= 15;
 			}
