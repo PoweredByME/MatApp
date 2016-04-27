@@ -16,3 +16,4 @@
 /Users/apple/Projects/MatApp/MatApp/obj/Release/MatApp.dll
 /Users/apple/Projects/MatApp/MatApp/obj/Release/MatApp.dll.mdb
 /Users/apple/Projects/MatApp/MatApp/bin/Release/Xamarin.Insights.dll
+/Users/apple/Projects/MatApp/MatApp/obj/Release/res/layout/thematappadapter.xml

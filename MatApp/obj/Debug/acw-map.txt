@@ -2,6 +2,10 @@ MatApp.MainActivity, MatApp;md50e852e2ef9ed6de29a3733e041668f49.MainActivity
 MatApp.MainActivity, MatApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md50e852e2ef9ed6de29a3733e041668f49.MainActivity
 MatApp.MainActivity;md50e852e2ef9ed6de29a3733e041668f49.MainActivity
 matapp.MainActivity;md50e852e2ef9ed6de29a3733e041668f49.MainActivity
+MatApp.MatAppAdapter, MatApp;md50e852e2ef9ed6de29a3733e041668f49.MatAppAdapter
+MatApp.MatAppAdapter, MatApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md50e852e2ef9ed6de29a3733e041668f49.MatAppAdapter
+MatApp.MatAppAdapter;md50e852e2ef9ed6de29a3733e041668f49.MatAppAdapter
+matapp.MatAppAdapter;md50e852e2ef9ed6de29a3733e041668f49.MatAppAdapter
 Xamarin.InsightsCore.BackgroundManager, Xamarin.Insights;md55caa6fe88082d2d5789caeda3e8fc56c.BackgroundManager
 Xamarin.InsightsCore.BackgroundManager, Xamarin.Insights, Version=1.11.0.0, Culture=neutral, PublicKeyToken=null;md55caa6fe88082d2d5789caeda3e8fc56c.BackgroundManager
 Xamarin.InsightsCore.BackgroundManager;md55caa6fe88082d2d5789caeda3e8fc56c.BackgroundManager

@@ -1,18 +1,19 @@
 ﻿<Properties StartupItem="MatApp/MatApp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="Android.Nexus 5 (Lollipop)" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MatApp/StringWatch.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="MatApp/MatAppAdapter.cs">
     <Files>
-      <File FileName="MatApp/MainActivity.cs" Line="31" Column="39" />
-      <File FileName="MatApp/AndroidInterface.cs" Line="33" Column="32" />
-      <File FileName="MatApp/StringWatch.cs" Line="108" Column="37" />
-      <File FileName="MatApp/vUnderstander.cs" Line="1" Column="1" />
-      <File FileName="MatApp/HelperClasses.cs" Line="68" Column="12" />
-      <File FileName="MatApp/DataTypeSpace.cs" Line="516" Column="3" />
+      <File FileName="MatApp/DataTypeSpace.cs" Line="233" Column="7" />
+      <File FileName="MatApp/MainActivity.cs" Line="26" Column="8" />
+      <File FileName="MatApp/HelperClasses.cs" Line="1" Column="1" />
+      <File FileName="MatApp/eUnderstander.cs" Line="1" Column="1" />
+      <File FileName="MatApp/SolverInterface.cs" Line="10" Column="1" />
+      <File FileName="MatApp/packages.config" Line="1" Column="1" />
+      <File FileName="MatApp/MatAppAdapter.cs" Line="16" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.MatApp AndroidDesignerPreferredDevice="Nexus 5" />
+  <MonoDevelop.Ide.ItemProperties.MatApp AndroidDesignerPreferredDevice="Nexus 4" />
 </Properties>

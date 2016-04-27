@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using StaticClasses;
 
 ///this namespace deals in expression with no equality signs i.e it sees commands and mathematical expressions and variable assigment.
+using Android.Drm;
 
 namespace virtualUnderstander
 {
@@ -37,9 +38,9 @@ namespace virtualUnderstander
 					if (theEquationSolution.isProcessed ()) {
 						theResult = new Expression (theEquationSolution.getSolution ());
 						if (theResult.getExpType () == 1) {
-							theResult.setTag (autoMatrixNamer ());
+							theResult.setEntireTag (autoMatrixNamer ());
 						} else if (theResult.getExpType () == 2) {
-							theResult.setTag (autoNumberNamer ());
+							theResult.setEntireTag (autoNumberNamer ());
 						}
 						Processed = true;
 					} else {
@@ -74,13 +75,13 @@ namespace virtualUnderstander
 			return theName;
 		}
 
-		static int SMACount=0;
+		static int SMACount = 0;	
 		string autoMatrixNamer()
 		{
-			string theName = "M" + SNACount;
+			string theName = "m" + SMACount;
 			while (doesExist (theName)) {
 				SMACount++;
-				theName = "M" + SMACount;
+				theName = "m" + SMACount;
 			}
 			SMACount++;
 			return theName;

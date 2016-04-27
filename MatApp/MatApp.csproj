@@ -66,6 +66,7 @@
     <Compile Include="StringWatch.cs" />
     <Compile Include="vUnderstander.cs" />
     <Compile Include="AndroidInterface.cs" />
+    <Compile Include="MatAppAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -81,6 +82,7 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\layout\theMatAppAdapter.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

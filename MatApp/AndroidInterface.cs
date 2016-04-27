@@ -14,6 +14,7 @@ using Android.Util;
 using System.Runtime.InteropServices;
 using Android.Content;
 using Javax.Xml.Transform;
+using DataTypeSpace;
 
 namespace theAndroidInterface
 {
@@ -22,17 +23,20 @@ namespace theAndroidInterface
 	    public static Android.Widget.TextView theMessageOutputFeild;
 		public static ListView OutputListView;
 		public static Context theContext;
-		static List<string> theList = new List<string>();
+		static List<Expression> theList = new List<Expression>();
 
-		public static void androidNumberPrinter(string exp)
+		public static void AndroidExpressionPrinter(Expression theExpression)
 		{
-			theList.Insert (0, exp);
-			ArrayAdapter<string> adapter = new ArrayAdapter<string> (theContext, Android.Resource.Layout.SimpleListItem1, theList);
+			Expression x = new Expression (theExpression);
+			theList.Insert (0, x);
+			MatApp.MatAppAdapter adapter = new MatApp.MatAppAdapter (theContext, theList);
 			OutputListView.Adapter = adapter;
-			if (theList.Count > 50) {
-				theList.RemoveRange (35, 16);
+
+			if (theList.Count >= 70) {
+				theList.RemoveRange (60, 11);
 			}
 		}
+			
 
 		public static void androidMessagePrinter(string exp)
 		{

@@ -13,10 +13,6 @@ namespace TheMessageHandler
 			theAndroidInterface.AndroidInterface.androidMessagePrinter(message);
 		}
 
-		public static void NumberPrinter(string exp)
-		{
-			theAndroidInterface.AndroidInterface.androidNumberPrinter (exp);
-		}
 
 	}
 }

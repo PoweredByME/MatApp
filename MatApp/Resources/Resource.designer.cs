@@ -59,6 +59,18 @@ namespace MatApp
 			// aapt resource value: 0x7f050003
 			public const int linearLayout2 = 2131034115;
 			
+			// aapt resource value: 0x7f050006
+			public const int tableLayout1 = 2131034118;
+			
+			// aapt resource value: 0x7f050007
+			public const int tableRow1 = 2131034119;
+			
+			// aapt resource value: 0x7f050008
+			public const int tableRow2 = 2131034120;
+			
+			// aapt resource value: 0x7f050009
+			public const int tableRow3 = 2131034121;
+			
 			// aapt resource value: 0x7f050004
 			public const int theErrorOutput = 2131034116;
 			
@@ -77,6 +89,9 @@ namespace MatApp
 			
 			// aapt resource value: 0x7f030000
 			public const int Main = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int theMatAppAdapter = 2130903041;
 			
 			static Layout()
 			{
