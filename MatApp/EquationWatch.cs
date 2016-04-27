@@ -9,6 +9,9 @@ using StaticClasses;
 /// variables which are needed for the solving and the unnamed numbers and matrics 
 /// are auto named and stored and are further sent for processing.
 /// </summary>
+using Java.Security;
+using System.Runtime.InteropServices;
+using MatApp;
 
 
 
@@ -59,9 +62,15 @@ namespace EquationHead
 						dumy = dumy.Trim ();
 						theBatch.Add (dumy);
 						theBatch.Add (c.ToString ());
+						if (c == '*' && StaticClasses.Checker.ifCommandExists (theBatch [theBatch.IndexOf (c.ToString ()) - 1])) {
+							Processed = false;
+							TheMessageHandler.MessagePrinter.Print ("Invalid operator sequence");
+							break;
+						}
 						dumy = "";
 					} else {
 						theBatch.Add (c.ToString ());
+
 						dumy = "";
 					}
 				} else {
@@ -105,8 +114,15 @@ namespace EquationHead
 						theBatch[counter] = mat.getTag ();
 						Expression theMat = new Expression (mat);
 						theExpressionList.Add (theMat);
-					}else {
-						if(!alreadyExists){
+					}
+					else if(Checker.isConstant (x))
+					{
+						if (!alreadyExists) {
+							theExpressionList.Add (theConstantList.getConstant (x)); 
+						}	
+					}
+					else {
+						if(!alreadyExists && !Checker.ifCommandExists (x)){
 						TheMessageHandler.MessagePrinter.Print ($"Error! The variable {x} does not exist, currently. Or Wrong formate entered");
 						Processed = false;
 							break;

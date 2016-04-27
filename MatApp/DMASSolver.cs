@@ -2,6 +2,8 @@
 using DataTypeSpace;
 using System.Collections.Generic;
 using allSolverInterface;
+using StaticClasses;
+using CommandUnderstander;
 /// <summary>
 /// DMAS solver.
 /// THis deals with the mathematical equations (arithematic) in 
@@ -54,11 +56,13 @@ namespace EquationSolver
 			}  // end if case for expression of the type of "-a"
 
 			else {     //if there is a mathematical expression like a+ a
-				if(Power()){
-					if (Division ()) {
-						if (Multiply ()) {
-							if (Add ()) {
+				if(CommandSolver ()){
+				   if(Power()){
+					 if (Division ()) {
+					   if (Multiply ()) {
+						 if (Add ()) {
 								Solution = theExpressionList [theExpressionList.IndexOf (getExpression (theBatch [0]))];
+								}
 							}
 						}
 					}
@@ -78,6 +82,12 @@ namespace EquationSolver
 				if (x == "+") {
 					string LHS = theBatch [counter - 1];
 					string RHS = theBatch [counter + 1];
+					if (Checker.ifCommandExists (LHS)) {
+						Processed = false;
+						solved = false;
+						TheMessageHandler.MessagePrinter.Print ("Invalid Operator here");
+						break;
+					}
 					Expression LEXP = new Expression (getExpression (LHS.TrimStart ("-".ToCharArray())));
 					Expression REXP = new Expression (getExpression (RHS.TrimStart ("-".ToCharArray())));
 					if (LEXP.getExpType () == REXP.getExpType ()) {
@@ -145,6 +155,12 @@ namespace EquationSolver
 				if (x == "*") {
 					string LHS = theBatch [counter - 1];
 					string RHS = theBatch [counter + 1];
+					if (Checker.ifCommandExists (LHS)) {
+						Processed = false;
+						solved = false;
+						TheMessageHandler.MessagePrinter.Print ("Invalid Operator here");
+						break;
+					}
 					Expression LEXP = new Expression (getExpression (LHS.TrimStart ("-".ToCharArray ())));
 					Expression REXP = new Expression (getExpression (RHS.TrimStart ("-".ToCharArray ())));
 					if (LEXP.getExpType () == 1 && REXP.getExpType () == 1) {
@@ -235,7 +251,12 @@ namespace EquationSolver
 				if (x == "/") {
 					string lhs = theBatch [counter - 1];
 					string rhs = theBatch [counter + 1];
-					Expression lexp = new Expression (getExpression (lhs.TrimStart ("-".ToCharArray ())));
+					if (Checker.ifCommandExists (lhs)) {
+						Processed = false;
+						solved = false;
+						TheMessageHandler.MessagePrinter.Print ("Invalid Operator here");
+						break;
+					}Expression lexp = new Expression (getExpression (lhs.TrimStart ("-".ToCharArray ())));
 					Expression rexp = new Expression (getExpression (rhs.TrimStart ("-".ToCharArray ())));
 					if (lexp.getExpType () == 1 && rexp.getExpType () == 2) {
 						Number rnum = new Number (rexp.getNumber ());
@@ -292,6 +313,12 @@ namespace EquationSolver
 				if (x == "^") {
 					string lhs = theBatch [counter - 1];
 					string rhs = theBatch [counter + 1];
+					if (Checker.ifCommandExists (lhs)) {
+						Processed = false;
+						solved = false;
+						TheMessageHandler.MessagePrinter.Print ("Invalid Operator here");
+						break;
+					}
 					Expression lexp = new Expression (getExpression (lhs.TrimStart ("-".ToCharArray ())));
 					Expression rexp = new Expression (getExpression (rhs.TrimStart ("-".ToCharArray ())));
 					if (lexp.getExpType () == 2 && lexp.getExpType () == 2) {
@@ -322,6 +349,39 @@ namespace EquationSolver
 				counter++;
 			}
 			return solved;
+		}
+
+		bool CommandSolver()
+		{
+			bool solved = true;
+			int counter = 0;
+			while (counter < theBatch.Count) {
+				string x = theBatch [counter];
+				if (x == "--->>>" && counter != 0) {
+					string lhs = new string (theBatch [counter - 1].ToCharArray ());
+					string rhs = new string (theBatch [counter + 1].ToCharArray ());
+					if (Checker.ifCommandExists (rhs)) {
+						solved = false;
+						Processed = false;
+						TheMessageHandler.MessagePrinter.Print ("Invalid Sequence");
+						break;
+					} else if (Checker.ifCommandExists (lhs)) {
+						cUnderstander command = new cUnderstander (lhs, rhs, new Expression (getExpression (rhs.TrimStart ("-".ToCharArray ()))));
+						if (command.isProcessed ()) {
+							Expression e = new Expression (command.getSolution ());
+							theExpressionList.Add (e);
+							theBatch [counter - 1] = e.getTag ();
+							theBatch.RemoveRange (counter, 2);
+						} else {
+							Processed = false;
+							solved = false;
+							break;
+						}
+					}
+				}
+				counter++;
+			}
+			return solved; 
 		}
 
 		////////////////////////Helper functions

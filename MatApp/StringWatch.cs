@@ -18,6 +18,7 @@ using virtualUnderstander;
 /// If the variable with the same name exists it overrides it. 
 /// Else it makes the new variable.
 /// </summary>
+using Android.Nfc.CardEmulators;
 
 namespace StringWatch
 {	
@@ -36,7 +37,7 @@ namespace StringWatch
 		}
 	
 		void Observe()
-		{
+		{ 
 			if (string.IsNullOrWhiteSpace (givenExpression)) {
 				MessagePrinter.Print ("No Input");
 				printExp = false;

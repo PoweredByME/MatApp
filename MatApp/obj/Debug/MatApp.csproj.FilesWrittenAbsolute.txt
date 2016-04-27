@@ -10,11 +10,10 @@
 /Users/apple/Projects/MatApp/MatApp/obj/Debug/res/mipmap-xhdpi/icon.png
 /Users/apple/Projects/MatApp/MatApp/obj/Debug/res/mipmap-xxhdpi/icon.png
 /Users/apple/Projects/MatApp/MatApp/obj/Debug/res/mipmap-xxxhdpi/icon.png
+/Users/apple/Projects/MatApp/MatApp/obj/Debug/res/layout/thematappadapter.xml
 /Users/apple/Projects/MatApp/MatApp/obj/Debug/R.cs.flag
 /Users/apple/Projects/MatApp/MatApp/bin/Debug/poweredbyme.matapp-Signed.apk
 /Users/apple/Projects/MatApp/MatApp/obj/Debug/uploadflags.txt
 /Users/apple/Projects/MatApp/MatApp/obj/Debug/MatApp.dll
 /Users/apple/Projects/MatApp/MatApp/obj/Debug/MatApp.dll.mdb
 /Users/apple/Projects/MatApp/MatApp/bin/Debug/Xamarin.Insights.dll
-/Users/apple/Projects/MatApp/MatApp/obj/Debug/res/layout/matappadapter.xml
-/Users/apple/Projects/MatApp/MatApp/obj/Debug/res/layout/thematappadapter.xml

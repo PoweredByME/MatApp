@@ -4,6 +4,8 @@ using DataTypeSpace;
 /// <summary>
 /// this namespace have static functions that prints a matrix or that apply the checks for the code.
 /// </summary>
+using System.ComponentModel;
+using Java.Security;
 
 
 namespace StaticClasses
@@ -25,10 +27,14 @@ namespace StaticClasses
 			return occur;
 		}
 		// tells if the stirng is a mathematical one.
-		public static bool ifContainOperations (string exp) => (exp.Contains("(")||exp.Contains(")")||exp.Contains("+")||exp.Contains("-")||exp.Contains("*")||exp.Contains("/")||exp.Contains("^"));
+		public static bool ifContainOperations (string exp) => (exp.Contains("(")||exp.Contains(")")||exp.Contains("+")||exp.Contains("-")||exp.Contains("*")||exp.Contains("/")||exp.Contains("^") || exp==("--->>>"));
+		public static bool ifCommandExists(string exp) => (exp==("sin") || exp==("cos") || exp==("tan") || exp=="atan"|| exp=="acos"|| exp=="asin"|| exp=="sinh"|| exp=="cosh"|| exp=="tanh"|| exp=="sec" || exp=="cosec"|| exp=="csc"|| exp=="cot"|| exp=="log"|| exp=="ln" || exp== "rref" || exp== "ref");
 		public static bool isOperation (char character)=> operators.Contains(character.ToString());
 		public static bool isMatrixDeclaration (string exp) => (exp.Contains("[") || exp.Contains("]"));
 		public static bool isBasicOperator (string exp) => (exp.Contains("+")||exp.Contains("-")||exp.Contains("*")||exp.Contains("/") || exp.Contains(")") || exp.Contains("^"));  // tells wehter the operator is a '+ - * /'  function made specifically for the Operator Manager function of the equation head
+		public static bool isConstant(string exp){
+		       return (exp == "pi" || exp == "e");
+		}
 		public static bool isNumberDeclaration (string exp)
 		{ 
 			bool numeric = true;

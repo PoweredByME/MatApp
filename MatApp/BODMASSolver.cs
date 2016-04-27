@@ -9,6 +9,11 @@ using allSolverInterface;
 /// It extracts the priority string and then 
 /// sends ot to DMASSolver for further calculation.
 /// </summary>
+using Org.Apache.Http;
+using Android.Util;
+using Android.Provider;
+using StaticClasses;
+using Java.Security;
 
 
 namespace EquationSolver
@@ -24,26 +29,27 @@ namespace EquationSolver
 
 		List <string> theBatch;
 		List <Expression> theExpressionList;
-		public BODMASSolver (List<Expression> theExpressionList, List<string> theBatch)
+		public BODMASSolver (List<Expression> theiExpressionList, List<string> theBatch)
 		{
 			this.theBatch = theBatch;
-			this.theExpressionList = theExpressionList;
-			Observe ();
+			theExpressionList = theiExpressionList;
+			Observe();
 		}
 
 		void Observe()
 		{
-			if(theBatch.Contains("("))
-			BracketSolver ();
-			if (Processed) {
-				DMASSolver SOL = new DMASSolver (theExpressionList, theBatch);
-				if (isProcessed ()) {
-					solution = SOL.getSolution ();
-				} else {
-					Processed = false;
+				if (theBatch.Contains ("(")) {
+					BracketSolver ();
 				}
-			}
-
+				if (Processed) {
+					DMASSolver SOL = new DMASSolver (theExpressionList, theBatch);
+					if (isProcessed ()) {
+						solution = SOL.getSolution ();
+					} else {
+						Processed = false;
+					}
+				}
+			
 		}
 
 		// this function deals with the brakkets.
@@ -94,9 +100,32 @@ namespace EquationSolver
 			}
 		}
 
+
+		/// command dealer///
+
+		bool CommandDealer()
+		{
+			bool solved = true;
+			int counter = 0;
+			while (counter < theBatch.Count) {
+				string x = theBatch [counter];
+				if (Checker.ifCommandExists (x)) {
+					if (!(theBatch [counter + 1] == "--->>>") && (theBatch [counter + 1] == "*") && !Checker.isBasicOperator (theBatch[counter+2])) {
+						theBatch [counter + 1] = "--->>>";
+					} else {
+						solved = false;
+						Processed = false;
+						TheMessageHandler.MessagePrinter.Print ("Invalid Operator");
+						break;
+					}
+				}
+			}
+			return solved;
+		}
+
 		////////////HELPER FUNCTIONS //////////////
 
-		int SNACount = 0;
+	    int SNACount = 0;
 		string autoNamer()
 		{
 			SNACount++;

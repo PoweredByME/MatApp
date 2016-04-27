@@ -24,7 +24,6 @@ namespace virtualUnderstander
 		}
 
 		public Expression getResult ()=> theResult;
-
 		void Observer()
 		{
 			if (Checker.isNumberDeclaration (givenExpression) && !Checker.ifContainOperations(givenExpression)) {

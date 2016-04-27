@@ -75,15 +75,15 @@ namespace MatApp
 
 		void ProcessStringObserverAndPrintExpression(StringObserver sol)
 		{
-			try{
+			//try{
 				sol.Process();
-			}catch {
-				TheMessageHandler.MessagePrinter.Print("Invalid Formate");
-			}
-			try
-			{
+			//}catch {
+			//	TheMessageHandler.MessagePrinter.Print("Invalid Formate");
+			//}
+			//try
+			//{
 				sol.Printer();
-			}catch{}
+			//}catch{}
 
 			
 		}

@@ -39,10 +39,10 @@ namespace equationUnderstander
 		void Obeserver()      
 		{
 			Breaker ();
-			if (Checker.ifContainOperations (LHS) || LHS.Contains (" ") || string.IsNullOrWhiteSpace(LHS) || Checker.isNumeric (LHS [0])) { 
+			if (Checker.isConstant (LHS) || Checker.ifCommandExists (LHS) ||Checker.ifContainOperations (LHS) || LHS.Contains (" ") || string.IsNullOrWhiteSpace(LHS) || Checker.isNumeric (LHS [0])) { 
 				// if left hand side is and equation or some thing else than a single variable or if it is and empty
 				//string or its first character is a number
-					TheMessageHandler.MessagePrinter.Print ("Wrong format LHS cannot contain an expression");
+					TheMessageHandler.MessagePrinter.Print ("Wrong format LHS: Cannot contain Expression or Constants");
 					Processed = false;
 			} else {
 				if (!Checker.ifContainOperations(RHS) && Checker.isNumberDeclaration (RHS)) {  // if the string is a Numeric Declaration.

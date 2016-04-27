@@ -1,14 +1,14 @@
 ﻿<Properties StartupItem="MatApp/MatApp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="Android.Nexus 5 (Lollipop)" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MatApp/MatAppAdapter.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="MatApp/cUnderstander.cs">
     <Files>
-      <File FileName="MatApp/DataTypeSpace.cs" Line="233" Column="7" />
-      <File FileName="MatApp/MainActivity.cs" Line="26" Column="8" />
-      <File FileName="MatApp/HelperClasses.cs" Line="1" Column="1" />
-      <File FileName="MatApp/eUnderstander.cs" Line="1" Column="1" />
-      <File FileName="MatApp/SolverInterface.cs" Line="10" Column="1" />
-      <File FileName="MatApp/packages.config" Line="1" Column="1" />
-      <File FileName="MatApp/MatAppAdapter.cs" Line="16" Column="1" />
+      <File FileName="MatApp/ConstantList.cs" Line="11" Column="35" />
+      <File FileName="MatApp/StaticClasses.cs" Line="36" Column="10" />
+      <File FileName="MatApp/eUnderstander.cs" Line="42" Column="64" />
+      <File FileName="MatApp/EquationSolvingHead.cs" Line="70" Column="15" />
+      <File FileName="MatApp/EquationWatch.cs" Line="98" Column="1" />
+      <File FileName="MatApp/vUnderstander.cs" Line="44" Column="4" />
+      <File FileName="MatApp/cUnderstander.cs" Line="133" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

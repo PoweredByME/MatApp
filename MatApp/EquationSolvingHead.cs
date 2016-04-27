@@ -37,7 +37,7 @@ namespace EquationSolvingHead
 						} else {
 							Solution = dmasSolver.getSolution ();	
 						}
-					} else if (brakets) {
+					} else if (brakets && CommandDealer ()) {
 						EquationSolver.BODMASSolver bodmasSolver = new EquationSolver.BODMASSolver (theExpressionList, theBatch);
 						if (bodmasSolver.isProcessed ()) {
 							Solution = bodmasSolver.getSolution ();
@@ -49,6 +49,28 @@ namespace EquationSolvingHead
 			}
 		}
 
+		bool CommandDealer()
+		{
+			bool solved = true;
+			int counter = 0;
+			while (counter < theBatch.Count) {
+				string x = theBatch [counter];
+				if (Checker.ifCommandExists (x)) {
+					if (!(theBatch [counter + 1] == "--->>>") && (theBatch [counter + 1] == "*") ) {
+						if(!Checker.isBasicOperator (theBatch[counter+2]))
+						theBatch [counter + 1] = "--->>>";
+					 else {
+						solved = false;
+						Processed = false;
+						TheMessageHandler.MessagePrinter.Print ("Invalid Operator");
+						break;
+						}
+					}
+				}
+				counter++;
+			}
+			return solved;
+		}
 
 		/// <summary>
 		/// This function deals with the task to manage the operators in correct formate like nothing like -- can come in the 

@@ -616,10 +616,10 @@ namespace DataTypeSpace
 			expType = exp.expType;
 			theTag = exp.theTag;
 			if (expType == 1) {
-				theMatrix = exp.theMatrix;
+				theMatrix = new Matrix(exp.theMatrix);
 			}
 			if (expType == 2) {
-				theNumber = exp.theNumber;
+				theNumber = new Number(exp.theNumber);
 			}
 		}
 		public void setTag (string tag)
