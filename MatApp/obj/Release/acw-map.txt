@@ -6,6 +6,14 @@ MatApp.MatAppAdapter, MatApp;md50e852e2ef9ed6de29a3733e041668f49.MatAppAdapter
 MatApp.MatAppAdapter, MatApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md50e852e2ef9ed6de29a3733e041668f49.MatAppAdapter
 MatApp.MatAppAdapter;md50e852e2ef9ed6de29a3733e041668f49.MatAppAdapter
 matapp.MatAppAdapter;md50e852e2ef9ed6de29a3733e041668f49.MatAppAdapter
+MatApp.MatAppAnimation, MatApp;md50e852e2ef9ed6de29a3733e041668f49.MatAppAnimation
+MatApp.MatAppAnimation, MatApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md50e852e2ef9ed6de29a3733e041668f49.MatAppAnimation
+MatApp.MatAppAnimation;md50e852e2ef9ed6de29a3733e041668f49.MatAppAnimation
+matapp.MatAppAnimation;md50e852e2ef9ed6de29a3733e041668f49.MatAppAnimation
+MatApp.VariableListAdapter, MatApp;md50e852e2ef9ed6de29a3733e041668f49.VariableListAdapter
+MatApp.VariableListAdapter, MatApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md50e852e2ef9ed6de29a3733e041668f49.VariableListAdapter
+MatApp.VariableListAdapter;md50e852e2ef9ed6de29a3733e041668f49.VariableListAdapter
+matapp.VariableListAdapter;md50e852e2ef9ed6de29a3733e041668f49.VariableListAdapter
 Xamarin.InsightsCore.BackgroundManager, Xamarin.Insights;md55caa6fe88082d2d5789caeda3e8fc56c.BackgroundManager
 Xamarin.InsightsCore.BackgroundManager, Xamarin.Insights, Version=1.11.0.0, Culture=neutral, PublicKeyToken=null;md55caa6fe88082d2d5789caeda3e8fc56c.BackgroundManager
 Xamarin.InsightsCore.BackgroundManager;md55caa6fe88082d2d5789caeda3e8fc56c.BackgroundManager

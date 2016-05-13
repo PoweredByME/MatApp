@@ -12,8 +12,7 @@ namespace TheMessageHandler
 		{
 			theAndroidInterface.AndroidInterface.androidMessagePrinter(message);
 		}
-
-
+			
 	}
 }
 

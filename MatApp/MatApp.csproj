@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BODMASSolver.cs" />
     <Compile Include="DataTypeSpace.cs" />
+    <Compile Include="Intelligence.cs" />
     <Compile Include="DMASSolver.cs" />
     <Compile Include="EquationSolvingHead.cs" />
     <Compile Include="EquationWatch.cs" />
@@ -69,12 +70,17 @@
     <Compile Include="MatAppAdapter.cs" />
     <Compile Include="cUnderstander.cs" />
     <Compile Include="ConstantList.cs" />
+    <Compile Include="MatAppStyleCSCode.cs" />
+    <Compile Include="MatAppAnimation.cs" />
+    <Compile Include="pUnderstanders.cs" />
+    <Compile Include="VariableListAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
+    <None Include="EmptyTextFile.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -85,6 +91,18 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\theMatAppAdapter.axml" />
+    <AndroidResource Include="Resources\values\theme.xml" />
+    <AndroidResource Include="Resources\drawable\EditTextStyle.xml" />
+    <AndroidResource Include="Resources\layout\LayoutExperiment.axml" />
+    <AndroidResource Include="Resources\drawable\EditTextLinearLayoutStyle.xml" />
+    <AndroidResource Include="Resources\drawable\BasicLinearLayoutStyle.xml" />
+    <AndroidResource Include="Resources\drawable\BottomActionBarStyle.xml" />
+    <AndroidResource Include="Resources\drawable\BottomBarButtonsStyle.xml" />
+    <AndroidResource Include="Resources\drawable\SideBarStyle.xml" />
+    <AndroidResource Include="Resources\drawable\VariableListLayoutStyle.xml" />
+    <AndroidResource Include="Resources\layout\theVariablelListAddapter.axml" />
+    <AndroidResource Include="Resources\layout\MatAppTitleBar.axml" />
+    <AndroidResource Include="Resources\drawable\TitleBarStyle.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -8,7 +8,8 @@ using DataTypeSpace;
 /// <summary>
 /// this namespace works for the strings that are passed in for of an equation. i.e with an equality sign.
 /// </summary>
-
+using MatApp;
+using CommandUnderstander;
 
 namespace equationUnderstander
 {
@@ -29,7 +30,10 @@ namespace equationUnderstander
 
 		}
 		public bool isProcessed () => Processed;
-		public Expression getResult () => result;
+		public Expression getResult () {
+			result.setStatement (RHS);
+			return result;
+		}
 		//________________________________________________________//
 
 		// this observes the equation being given... i.e it sees if is mathematical equation 
@@ -39,10 +43,10 @@ namespace equationUnderstander
 		void Obeserver()      
 		{
 			Breaker ();
-			if (Checker.isConstant (LHS) || Checker.ifCommandExists (LHS) ||Checker.ifContainOperations (LHS) || LHS.Contains (" ") || string.IsNullOrWhiteSpace(LHS) || Checker.isNumeric (LHS [0])) { 
+			if (Checker.isConstant (LHS) || Checker.ifCommandExists (LHS) || Checker.ifPrefixExist (LHS) ||Checker.ifContainOperations (LHS) || LHS.Contains (" ") || string.IsNullOrWhiteSpace(LHS) || Checker.isNumeric (LHS [0])) { 
 				// if left hand side is and equation or some thing else than a single variable or if it is and empty
 				//string or its first character is a number
-					TheMessageHandler.MessagePrinter.Print ("Wrong format LHS: Cannot contain Expression or Constants");
+					TheMessageHandler.MessagePrinter.Print ("LHS cannot contain Expression or Constants");
 					Processed = false;
 			} else {
 				if (!Checker.ifContainOperations(RHS) && Checker.isNumberDeclaration (RHS)) {  // if the string is a Numeric Declaration.
@@ -51,13 +55,21 @@ namespace equationUnderstander
 					MatrixMaker();
 				} else {
 					if (SearchList (RHS)) {    // THIS DEALS WITH THE REASSIGNMENT LIKE A = B 
-						Reassignment();
-					} else {
+						Reassignment ();
+					} else if (Checker.ifPrefixExist (RHS)) {
+						result = new Expression (pUnderstander.prefixList (RHS));
+						result.setEntireTag (LHS);
+						Processed = true;
+					} else if (Checker.isConstant (RHS)) {
+						result = new Expression (theConstantList.getConstant (RHS));
+						result.setEntireTag (LHS);
+						Processed = true;
+					}else {
 						if (Checker.ifContainOperations (RHS)) {
 							EquationHead.EquationWatch solution = new EquationHead.EquationWatch (theExpressionList, RHS);
 							if (solution.isProcessed()) {
 								result = new Expression (solution.getSolution ());
-								result.setTag (LHS);
+								result.setEntireTag (LHS);
 								Processed = true;
 							} else {
 								Processed = false;

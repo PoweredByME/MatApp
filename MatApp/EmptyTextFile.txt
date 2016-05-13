@@ -1,0 +1,124 @@
+﻿
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:background="#ff90a4ae">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:paddingTop="5dp"
+        android:paddingBottom="0dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="f(x)"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textSize="23dp"
+            android:textColorHint="@android:color/darker_gray"
+            android:id="@+id/theInput"
+            android:singleLine="true"
+            android:cursorVisible="true"
+            android:scrollHorizontally="true"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="start"
+            android:textColor="@android:color/black"
+            android:background="@drawable/EditTextStyle" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:id="@+id/linearLayout2">
+        <TextView
+            android:id="@+id/Line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+        <FrameLayout
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frameLayout1"
+            android:layout_weight="80"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:layerType="software"
+            android:layoutMode="opticalBounds"
+            android:background="#ffffffff">
+            <TextView
+                android:id="@+id/theMessagePrinter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ff424242"
+                android:textColor="@android:color/white"
+                android:textSize="15dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/linearLayout3">
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/OutputListView"
+                    android:divider="#ffffffff" />
+            </LinearLayout>
+        </FrameLayout>
+        <TextView
+            android:id="@+id/Line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:weightSum="90"
+            android:id="@+id/linearLayout4">
+            <Button
+                android:text="Clear"
+                android:layout_weight="30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterClear" />
+            <Button
+                android:text="Solve"
+                android:layout_weight="30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterSolve" />
+            <Button
+                android:text="Refresh"
+                android:layout_weight="30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterRefresh" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

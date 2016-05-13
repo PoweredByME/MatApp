@@ -12,6 +12,7 @@ using StaticClasses;
 using Java.Security;
 using System.Runtime.InteropServices;
 using MatApp;
+using Android.Util;
 
 
 
@@ -81,7 +82,11 @@ namespace EquationHead
 				dumy = dumy.Trim ();
 				theBatch.Add (dumy);
 			}
-			dumy = "";  // end theBatach making logic.
+			dumy = "";
+			//if (givenExpression [givenExpression.Length - 1] == '!') {
+			//	theBatch.Add ("!"); 
+			//}
+				// end theBatach making logic.
 		}  //end Process String function.
 
 		/// <summary>
@@ -99,34 +104,36 @@ namespace EquationHead
 				string x = theBatch [counter];
 				bool alreadyExists = AlreadyExists (x);
 				if (!Checker.ifContainOperations (x)) {
-					if (!alreadyExists&& getExpression (x)) {
+					if (!alreadyExists && getExpression (x)) {
 						theExpressionList.Add (theRequredExpression);
 					} else if (Checker.isNumberDeclaration (x)) {
 						Number num = new Number ();
 						num.setTag (autoNamer ());
 						num.setNumber (double.Parse (x));
-						theBatch[counter] = num.getTag ();
+						theBatch [counter] = num.getTag ();
 						Expression theNum = new Expression (num);
 						theExpressionList.Add (theNum);
-					} else if (Checker.isMatrixDeclaration (x)) {
+					} else if (Checker.isMatrixDeclaration (x) && x.Contains ("]") && Checker.getOccurance (x, ']') == 1 && Checker.getOccurance (x, '[') == 1 && x[x.Length - 1] == ']') {
 						Matrix mat = new Matrix (HelperClasses.Processes.MatrixMaker (x));
 						mat.setTag (autoNamer ());
-						theBatch[counter] = mat.getTag ();
+						theBatch [counter] = mat.getTag ();
 						Expression theMat = new Expression (mat);
 						theExpressionList.Add (theMat);
-					}
-					else if(Checker.isConstant (x))
-					{
+					} else if (Checker.isConstant (x)) {
 						if (!alreadyExists) {
 							theExpressionList.Add (theConstantList.getConstant (x)); 
-						}	
+						}
+					}
+					else if(Checker.ifPrefixExist (x)){
+						if (!alreadyExists) {
+							theExpressionList.Add (pUnderstander.prefixList (x));
+						}
 					}
 					else {
 						if(!alreadyExists && !Checker.ifCommandExists (x)){
 						TheMessageHandler.MessagePrinter.Print ($"Error! The variable {x} does not exist, currently. Or Wrong formate entered");
 						Processed = false;
 							break;
-						
 						}
 					}
 				} 

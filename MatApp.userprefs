@@ -1,19 +1,40 @@
 ﻿<Properties StartupItem="MatApp/MatApp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="Android.Nexus 5 (Lollipop)" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 4 (Lollipop)" />
   <MonoDevelop.Ide.Workbench ActiveDocument="MatApp/cUnderstander.cs">
     <Files>
-      <File FileName="MatApp/ConstantList.cs" Line="11" Column="35" />
-      <File FileName="MatApp/StaticClasses.cs" Line="36" Column="10" />
-      <File FileName="MatApp/eUnderstander.cs" Line="42" Column="64" />
-      <File FileName="MatApp/EquationSolvingHead.cs" Line="70" Column="15" />
-      <File FileName="MatApp/EquationWatch.cs" Line="98" Column="1" />
-      <File FileName="MatApp/vUnderstander.cs" Line="44" Column="4" />
-      <File FileName="MatApp/cUnderstander.cs" Line="133" Column="4" />
+      <File FileName="MatApp/MainActivity.cs" Line="127" Column="51" />
+      <File FileName="MatApp/pUnderstanders.cs" Line="1" Column="1" />
+      <File FileName="MatApp/Resources/drawable/BottomBarButtonsStyle.xml" Line="5" Column="30" />
+      <File FileName="MatApp/Resources/drawable/BottomActionBarStyle.xml" Line="9" Column="13" />
+      <File FileName="MatApp/Resources/drawable/SideBarStyle.xml" Line="7" Column="30" />
+      <File FileName="MatApp/Resources/drawable/VariableListLayoutStyle.xml" Line="7" Column="28" />
+      <File FileName="MatApp/cUnderstander.cs" Line="442" Column="34" />
+      <File FileName="MatApp/Intelligence.cs" Line="31" Column="39" />
+      <File FileName="MatApp/StaticClasses.cs" Line="40" Column="144" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="MatApp" expanded="True">
+            <Node name="MatApp" expanded="True">
+              <Node name="Resources" expanded="True">
+                <Node name="drawable" expanded="True" />
+                <Node name="layout" expanded="True" />
+              </Node>
+              <Node name="cUnderstander.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/apple/Projects/MatApp/MatApp/eUnderstander.cs" line="57" column="1" />
+      <Breakpoint file="/Users/apple/Projects/MatApp/MatApp/eUnderstander.cs" line="45" column="1" />
+      <Breakpoint file="/Users/apple/Projects/MatApp/MatApp/StringWatch.cs" line="58" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.MatApp AndroidDesignerPreferredDevice="Nexus 4" />
+  <MonoDevelop.Ide.ItemProperties.MatApp AndroidDesignerPreferredDevice="Nexus 4" AndroidDesignerPreferredTheme="Theme.Holo" />
 </Properties>

@@ -589,6 +589,18 @@ namespace DataTypeSpace
 	{
 		Matrix theMatrix;
 		Number theNumber;
+		string theStatement;
+
+		public void setStatement(string statement)
+		{
+			theStatement = statement;
+		}
+
+		public string getStatement()
+		{
+			return theStatement;
+		}
+
 		string theTag = "Exp";
 		int expType = 0;
 
@@ -615,6 +627,7 @@ namespace DataTypeSpace
 
 			expType = exp.expType;
 			theTag = exp.theTag;
+			theStatement = exp.theStatement;
 			if (expType == 1) {
 				theMatrix = new Matrix(exp.theMatrix);
 			}

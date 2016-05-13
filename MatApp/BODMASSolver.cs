@@ -14,6 +14,8 @@ using Android.Util;
 using Android.Provider;
 using StaticClasses;
 using Java.Security;
+using Android.Nfc.CardEmulators;
+using Java.Awt.Font;
 
 
 namespace EquationSolver
@@ -31,19 +33,21 @@ namespace EquationSolver
 		List <Expression> theExpressionList;
 		public BODMASSolver (List<Expression> theiExpressionList, List<string> theBatch)
 		{
+			Processed = true;
 			this.theBatch = theBatch;
+			CommandDealer ();
 			theExpressionList = theiExpressionList;
 			Observe();
 		}
 
 		void Observe()
 		{
-				if (theBatch.Contains ("(")) {
+				if (theBatch.Contains ("(") || theBatch.Contains ("-(") ) {
 					BracketSolver ();
 				}
 				if (Processed) {
 					DMASSolver SOL = new DMASSolver (theExpressionList, theBatch);
-					if (isProcessed ()) {
+					if (SOL.isProcessed ()) {
 						solution = SOL.getSolution ();
 					} else {
 						Processed = false;
@@ -61,7 +65,7 @@ namespace EquationSolver
 			bool insert = false;
 			int startPos = 0;
 			while (counter < theBatch.Count) {
-				if (!theBatch.Contains ("("))
+				if (!theBatch.Contains ("(") && !theBatch.Contains ("-("))
 					break;
 				string x = theBatch [counter];
 				if (x == ")") {
@@ -75,6 +79,17 @@ namespace EquationSolver
 					DMASSolver sol = new DMASSolver (theNewExpressionList, theKeep);
 					if (sol.isProcessed ()) {
 						Expression newOne = new Expression (sol.getSolution ());
+						if (theBatch [startPos].Contains ("-")) {
+							if (newOne.getExpType () == 1) {
+								Matrix theMat = new Matrix (newOne.getMatrix ());
+								theMat = theMat * -1;
+								newOne = new Expression (theMat);
+							} else if (newOne.getExpType () == 2){
+								Number theNum = new Number ();
+								theNum.setNumber (newOne.getNumber ().getNumber () * -1);
+								newOne = new Expression (theNum);
+							}
+						}
 						newOne.setEntireTag (autoNamer ());
 						theExpressionList.Add (newOne);
 						theBatch [startPos] = newOne.getTag ();
@@ -89,7 +104,7 @@ namespace EquationSolver
 				if (insert) {
 					theKeep.Add (x);
 				}
-				if (x == "(") {
+				if (x.TrimStart ("-".ToCharArray ()) == "(") {
 					theKeep = new List<string> ();
 					startPos = counter;
 					insert = true;
@@ -119,6 +134,7 @@ namespace EquationSolver
 						break;
 					}
 				}
+				counter++;
 			}
 			return solved;
 		}

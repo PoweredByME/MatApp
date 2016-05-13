@@ -9,6 +9,12 @@ using CommandUnderstander;
 /// THis deals with the mathematical equations (arithematic) in 
 /// DMAS.
 /// </summary>
+using System.Threading;
+using Android.Views;
+using Android.Text.Util;
+using Android.Text;
+
+
 namespace EquationSolver
 {
 	public class DMASSolver : Solver
@@ -19,7 +25,6 @@ namespace EquationSolver
 		Expression Solution;
 
 		public bool isProcessed () => Processed;
-
 		public Expression getSolution() => Solution;
 		public DMASSolver (List<Expression> theExpressionList, List<string>theBatch)
 		{
@@ -56,12 +61,14 @@ namespace EquationSolver
 			}  // end if case for expression of the type of "-a"
 
 			else {     //if there is a mathematical expression like a+ a
+				if(UnitaryOperators ()){
 				if(CommandSolver ()){
 				   if(Power()){
 					 if (Division ()) {
-					   if (Multiply ()) {
-						 if (Add ()) {
-								Solution = theExpressionList [theExpressionList.IndexOf (getExpression (theBatch [0]))];
+								if (Multiply ()) {
+									if (Add ()) {
+										Solution = theExpressionList [theExpressionList.IndexOf (getExpression (theBatch [0]))];
+									}
 								}
 							}
 						}
@@ -139,6 +146,7 @@ namespace EquationSolver
 					theBatch.RemoveRange (counter, 2);
 					counter = 0;
 				}
+				else
 				counter++;
 			}
 			return  solved;
@@ -237,6 +245,7 @@ namespace EquationSolver
 					theBatch.RemoveRange (counter,2);
 					counter = 0;
 				}
+				else
 				counter++;
 			}
 			return solved;
@@ -298,11 +307,13 @@ namespace EquationSolver
 					theBatch.RemoveRange (counter, 2);
 					counter = 0;
 				}
-
+				else
 				counter++;
 			}
 			return solved;
 		}  //end function for division.
+
+	    static int eCount = 0;
 
 		bool Power()
 		{
@@ -321,7 +332,26 @@ namespace EquationSolver
 					}
 					Expression lexp = new Expression (getExpression (lhs.TrimStart ("-".ToCharArray ())));
 					Expression rexp = new Expression (getExpression (rhs.TrimStart ("-".ToCharArray ())));
-					if (lexp.getExpType () == 2 && lexp.getExpType () == 2) {
+					if (Checker.isConstant (lhs.Trim ("-".ToCharArray ())) && lhs.Trim ("-".ToCharArray ()) =="e"  && rexp.getExpType () == 2) {
+						Number sol = new Number();
+						double num = rexp.getNumber ().getNumber ();
+						if (rhs.Contains ("-")) {
+							num = -1 * num;
+							theBatch [counter + 1] = theBatch [counter + 1].TrimStart ("-".ToCharArray ());
+						}
+						double ans =  (Math.Exp (num));
+						if (lhs.Contains ("-")) {
+							ans = ans * -1;
+							theBatch [counter - 1] = theBatch [counter - 1].TrimStart ("-".ToCharArray ());
+						}
+						string ne = ("theThug????Saadetcmaxxjp" + (eCount++));
+						sol.setNumber (ans);
+						sol.setTag (ne);
+						theBatch [counter - 1] =ne ;//theBatch [counter - 1].TrimStart ("-".ToCharArray ());
+						Expression exp = new Expression(sol);
+						theExpressionList [theExpressionList.IndexOf (getExpression (lhs.TrimStart ("-".ToCharArray ())))] = exp; 
+					   }
+					else if (lexp.getExpType () == 2 && lexp.getExpType () == 2) {
 						Number lnum = new Number (lexp.getNumber ());
 						Number rnum = new Number (rexp.getNumber ());
 						if (lhs.Contains ("-")) {
@@ -337,7 +367,7 @@ namespace EquationSolver
 						ans.setTag (lhs.TrimStart ("-".ToCharArray ()));
 						Expression exp = new Expression (ans);
 						theExpressionList [theExpressionList.IndexOf (getExpression (lhs.TrimStart ("-".ToCharArray ())))] = exp; 
-					} else {
+						} else {
 						TheMessageHandler.MessagePrinter.Print ("Invalid Operator for matrices");
 						solved = false;
 						Processed = false;
@@ -346,6 +376,7 @@ namespace EquationSolver
 					theBatch.RemoveRange (counter, 2);
 					counter = 0;
 				}
+				else
 				counter++;
 			}
 			return solved;
@@ -372,6 +403,7 @@ namespace EquationSolver
 							theExpressionList.Add (e);
 							theBatch [counter - 1] = e.getTag ();
 							theBatch.RemoveRange (counter, 2);
+							counter=0;
 						} else {
 							Processed = false;
 							solved = false;
@@ -379,9 +411,49 @@ namespace EquationSolver
 						}
 					}
 				}
+				else
 				counter++;
 			}
 			return solved; 
+		}
+
+		bool UnitaryOperators()    // to performing functinos like factorial;
+		{
+			bool solved = true;
+			int counter = 0;
+			while (counter < theBatch.Count) {
+				string x = theBatch [counter];
+				if (x == "!") {
+					string lhs = theBatch [counter - 1];
+					Expression lexp = new Expression (getExpression (lhs.TrimStart ("-".ToCharArray ())));
+					if(lexp.getExpType () == 2) {
+						double theNumber = lexp.getNumber ().getNumber ();
+						if (lhs.Contains ("-")) {
+							theNumber = -1 * theNumber;
+						}
+						theNumber = Factorial (theNumber);
+						Number ans = new Number ();
+						ans.setNumber (theNumber);
+						ans.setTag (lhs.TrimStart ("-".ToCharArray ()));
+						Expression exp = new Expression (ans);
+						theExpressionList [theExpressionList.IndexOf (getExpression (lhs.TrimStart ("-".ToCharArray ())))] = exp;
+						theBatch [counter - 1] = exp.getTag ();
+						theBatch.RemoveAt (counter);
+					}
+				} else {
+					counter++;
+				}
+			}
+			return solved;
+            
+		}
+
+		double Factorial (double num){
+			if (num == 1) {
+				return num;
+			} else {
+				return (num * Factorial (num - 1));
+			}
 		}
 
 		////////////////////////Helper functions

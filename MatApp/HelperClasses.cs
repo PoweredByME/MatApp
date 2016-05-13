@@ -1,6 +1,7 @@
 ﻿using System;
 using DataTypeSpace;
 using System.Collections.Generic;
+using StaticClasses;
 
 namespace HelperClasses
 {
@@ -15,12 +16,22 @@ namespace HelperClasses
 		static Matrix resultMatrix;
 		static string theString;
 		static List<string> theList;
+		static bool Processed = false;
+		static bool isProcessed() => Processed;
+
 		public static Matrix MatrixMaker(string exp)
 		{
 			theList = new List<string> ();
-			theString = new string (exp.ToCharArray());
-			MatrixProcessor ();
+			theString = new string(exp.ToCharArray());
+			if (Checker.isMatrixDeclaration (exp) && Checker.getOccurance (exp, '[') == 1 && Checker.getOccurance (exp, ']') == 1) {
+				MatrixProcessor ();
+				Processed = true;
+			} else {
+				Processed = false;
+				TheMessageHandler.MessagePrinter.Print ("Wrong Formate of Matrix Entered");
+			}
 			return resultMatrix;
+
 		}
 
 		//_________________________________________________________________________________________________________________//
@@ -66,7 +77,7 @@ namespace HelperClasses
 					if (greatest < columns) {
 						greatest = columns;
 						if (!alreadyPrinted) {
-							TheMessageHandler.MessagePrinter.Print( "Alert!!! There were some postions in the matrix that you left undefined. So, I have set them to zero.");  
+							//TheMessageHandler.MessagePrinter.Print( "Alert!!! There were some postions in the matrix that you left undefined. So, I have set them to zero.");  
 							alreadyPrinted = true;
 						}
 					} 

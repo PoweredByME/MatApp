@@ -5,6 +5,9 @@ using StaticClasses;
 
 ///this namespace deals in expression with no equality signs i.e it sees commands and mathematical expressions and variable assigment.
 using Android.Drm;
+using MatApp;
+using Android.Util;
+using Org.Apache.Http.Conn;
 
 namespace virtualUnderstander
 {
@@ -23,7 +26,10 @@ namespace virtualUnderstander
 			this.Observer();
 		}
 
-		public Expression getResult ()=> theResult;
+		public Expression getResult (){
+			theResult.setStatement (givenExpression);
+			return 	theResult;
+		}
 		void Observer()
 		{
 			if (Checker.isNumberDeclaration (givenExpression) && !Checker.ifContainOperations(givenExpression)) {
@@ -31,9 +37,8 @@ namespace virtualUnderstander
 			} else if (Checker.isMatrixDeclaration (givenExpression) && !Checker.ifContainOperations(givenExpression)) {
 				MakeMatrix ();
 			} else {
-				if(Checker.ifContainOperations(givenExpression))    // if the expression is a mathematical one.
-				{
-					EquationHead.EquationWatch theEquationSolution = new EquationHead.EquationWatch (theExpressionList,givenExpression);
+				if (Checker.ifContainOperations (givenExpression)) {    // if the expression is a mathematical one.
+					EquationHead.EquationWatch theEquationSolution = new EquationHead.EquationWatch (theExpressionList, givenExpression);
 					if (theEquationSolution.isProcessed ()) {
 						theResult = new Expression (theEquationSolution.getSolution ());
 						if (theResult.getExpType () == 1) {
@@ -45,11 +50,17 @@ namespace virtualUnderstander
 					} else {
 						Processed = false;
 					}
-				}
-				else if (SearchList (givenExpression))   // for searching a quried variable
-				{
+				} else if (!Checker.ifPrefixExist (givenExpression) && !Checker.isConstant (givenExpression) && SearchList (givenExpression)) {   // for searching a quried variable
 					Processed = false;
-				} 
+				} else if (!Checker.ifPrefixExist (givenExpression) && Checker.isConstant (givenExpression)) {
+					Processed = false;
+					ExpressionPrinter p = new ExpressionPrinter (theConstantList.getConstant (givenExpression));
+					p.Print ();
+				} else if (Checker.ifPrefixExist (givenExpression)) {
+					Processed = false;
+					ExpressionPrinter p = new ExpressionPrinter (pUnderstander.prefixList (givenExpression));
+					p.Print ();
+				}
 				else 
 				{
 					TheMessageHandler.MessagePrinter.Print ("Variable does not exist");
@@ -62,7 +73,7 @@ namespace virtualUnderstander
 		/// <summary>
 		/// these two functions auto name the variable.
 		/// </summary>
-		static int SNACount=0;
+		public static int SNACount=0;
 		string autoNumberNamer()
 		{
 			string theName = "n" + SNACount;
@@ -74,7 +85,7 @@ namespace virtualUnderstander
 			return theName;
 		}
 
-		static int SMACount = 0;	
+	    public static int SMACount = 0;	
 		string autoMatrixNamer()
 		{
 			string theName = "m" + SMACount;
@@ -158,7 +169,6 @@ namespace virtualUnderstander
 			return fished;
 		}
 
-		static public string messageOnFound;
 
 		bool SearchList(string exp)   // searches the list for queried variable and returns a bool if found = true and 
 		{		                              // false if not found
@@ -167,7 +177,6 @@ namespace virtualUnderstander
 				if (x.getTag () == exp) {
 					ExpressionPrinter p = new ExpressionPrinter (x);
 					p.Print ();
-					TheMessageHandler.MessagePrinter.Print (messageOnFound);
 					found = true;
 					break;
 				}

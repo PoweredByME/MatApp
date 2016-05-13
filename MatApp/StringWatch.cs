@@ -18,30 +18,41 @@ using virtualUnderstander;
 /// If the variable with the same name exists it overrides it. 
 /// Else it makes the new variable.
 /// </summary>
-using Android.Nfc.CardEmulators;
 
 namespace StringWatch
 {	
 	public class StringObserver
 	{
 		List<Expression> theExpressionList = new List<Expression>();
+		public List<string> theVariableList = new List<string>();
 		string givenExpression;
 		bool printExp = false;   // this is the analog of Processed and takes the signal of Processed variable from the other classes.
 		public void setString(string exp)=> givenExpression = exp.Trim();
 		public void Process() => Observe();
+		public bool isExpressionPrinted () => printExp;
 		public StringObserver(){}
 		public StringObserver(string theString)
 		{
 			theString = theString.Trim ();
 			givenExpression = new string (theString.ToCharArray ());
 		}
-	
+        
+		public void resetExpressionList()
+		{
+			theExpressionList = new List<Expression> ();
+			counter = 0;
+			theVariableList = new List<string> ();
+			vUnderstander.SMACount = 0;
+			vUnderstander.SNACount = 0;
+		}
+
 		void Observe()
 		{ 
 			if (string.IsNullOrWhiteSpace (givenExpression)) {
 				MessagePrinter.Print ("No Input");
 				printExp = false;
 			}
+
 			else if (Checker.isEquation (givenExpression)) {  // if the string is an equation. i.e. with an equality symbol 
 				if (Checker.getOccurance (givenExpression, '=') == 1) {  // if there is a correct formate(1 equality only)
 					eUnderstander equation = new eUnderstander (theExpressionList,givenExpression);   // send the string to eUnderstander for further processing 
@@ -49,18 +60,20 @@ namespace StringWatch
 						Expression theResult = new Expression (equation.getResult ());
 						if (DoesNotAlreadyExist (theResult)) {    //checks if the variable name already exists or not.
 							theExpressionList.Add (theResult);
+							theVariableList.Insert (0, theResult.getTag ());
 							printExp = true;
 						} else {
 							printExp = false;
 						}
 					}
 				} else {
-					MessagePrinter.Print ("Wrong formate equation must contain only one equality operator");
+					MessagePrinter.Print ("Wrong formate: enter only one '=' operator.");
 				}
 			} else {
 				vUnderstander expression = new vUnderstander (theExpressionList, givenExpression);    // sends the equation  to the virtual Understanding classes to manage it.
 				if (expression.isProcessed ()) {
 					Expression theResult = new Expression (expression.getResult ());
+					theVariableList.Insert (0, theResult.getTag ());
 					theExpressionList.Add (theResult);
 					printExp = true;
 				} else
@@ -81,7 +94,6 @@ namespace StringWatch
 				}
 			}
 			if (notfound == false) {
-				TheMessageHandler.MessagePrinter.Print ("A variable with the same name existed so I have overriden the data.");
 				ExpressionPrinter exp = new ExpressionPrinter (theResult);
 				exp.Print ();
 			}
@@ -91,17 +103,15 @@ namespace StringWatch
 
 		/// ///////////////////////////////////////////////////////////////////////////
 
-		public string messageOnSolved;
 		private static int counter = 0;   
 	    public void Printer() // printes the expressions of the Expression List 
 		{
 			if (printExp) {
-				TheMessageHandler.MessagePrinter.Print (messageOnSolved);
 				ExpressionPrinter x = new ExpressionPrinter (theExpressionList [counter]);
 				x.Print ();
 				counter++;
 			} 
-			autoDestroyer ();
+			//autoDestroyer ();
 		}
 
 		void autoDestroyer()
