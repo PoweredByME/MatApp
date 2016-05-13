@@ -279,6 +279,31 @@ namespace CommandUnderstander
 				}
 			}
 
+			if (LHS == "inv") {
+				if (rexp.getExpType () == 2) {
+					Processed = false;
+					TheMessageHandler.MessagePrinter.Print ("Invalid Operation");
+				} else if(rexp.getExpType () == 1){
+					Matrix mat = new Matrix (rexp.getMatrix ());
+					if (mat.getRows () == mat.getColumns ()) {
+						double det = mat.determinant ();
+						if (det != 0) {
+							mat = mat.getInverse (det);
+							mat.setTag (autoNamer ());
+							solution = new Expression (mat);
+						} else {
+							TheMessageHandler.MessagePrinter.Print ("Determinant is zero. Inverse does not exist");
+							Processed = false;
+						}
+					} else {
+						TheMessageHandler.MessagePrinter.Print ("Invalid Matrix");
+						Processed = false;
+					}
+				}
+			}
+
+
+
 			if (LHS == "ref") {
 				if (rexp.getExpType () == 2) {
 					Processed = false;
@@ -456,7 +481,7 @@ namespace CommandUnderstander
 		public static List<string> getMatrixFunctionList()
 		{
 			List<string> theFunctionList = new 	List<string> ();
-			theFunctionList.Add ("Determinant");
+			theFunctionList.Add ("Det");
 			theFunctionList.Add ("Inverse");
 			theFunctionList.Add ("Transpose");
 			theFunctionList.Add ("Adjoint"); 
@@ -469,7 +494,7 @@ namespace CommandUnderstander
 		public static string matrixFunctionInputManager(string exp)
 		{
 			string result = "";
-			if (exp == "Determinant") {
+			if (exp == "Det") {
 				result = "det";
 			} else if (exp == "Inverse") {
 				result = "inv";

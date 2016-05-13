@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using DataTypeSpace;
 using StaticClasses;
-using Java.Nio.Channels;
-using Android.Text;
-using Javax.Xml.Xpath;
 using System.Text;
-using Android.OS;
 using MatApp;
 using System.Runtime.InteropServices;
 
@@ -123,6 +119,8 @@ namespace EquationSolvingHead
 								break;
 							} else
 								theBatch.RemoveAt (counter + 1);	  //else the "+" is removed from theBatch List
+							    counter = 0;
+							    continue;
 						} else {        //else if there the no operator in the next then 
 							theBatch [counter] = "+";     // the x string (current string) is converted to plus and 
 							theBatch [counter + 1] = "-" + theBatch [counter + 1];   // then the minus operator becomes part of the vry next command.

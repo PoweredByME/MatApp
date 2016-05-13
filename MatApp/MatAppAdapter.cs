@@ -71,7 +71,7 @@ namespace MatApp
 
 			if (CurrentExpression.getExpType () == 2) {
 				var text = StyleCSCode.MatAppStyleCSCode.StyledTextView (theContext);//new TextView (theContext);
-				text.Text = $"{CurrentExpression.getTag()} = {CurrentExpression.getNumber().getNumber()}";
+				text.Text = $"{CurrentExpression.getTag()} = {(CurrentExpression.getNumber().getNumber())}";
 				theItem.AddView (text);
 
 			}
@@ -91,7 +91,7 @@ namespace MatApp
 					theText.Text = "";
 					string theString = "\t\t\t";
 					for (int c1 = 1; c1 <= theMatrix.getColumns (); c1++) {
-						theString += "\t\t\t" + theMatrix.getElement (c, c1); 
+						theString += "\t\t\t" + Math.Round(theMatrix.getElement (c, c1), 6); 
 					}
 					theString += "\t\t\t\t\t\t";
 					theText.Text = theString;

@@ -1,6 +1,6 @@
 ﻿using System;
 using StaticClasses;
-
+using System.Globalization;
 namespace DataTypeSpace
 {
 	public class Matrix  //matrix class starts
@@ -138,6 +138,15 @@ namespace DataTypeSpace
 				}
 			}   // end else case.
 		}    //end swap function .
+
+		public Matrix getInverse(double det)
+		{
+			Matrix adj = this.getAdjoint ();
+			adj = adj.getTranspose ();
+			adj = adj / det;
+			return (new Matrix (adj));
+		}
+
 
 		private void rowaddition(int row1, int row2, double factor)  // function for row addition with a factor.
 		{

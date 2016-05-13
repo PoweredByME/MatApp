@@ -38,7 +38,9 @@ namespace StaticClasses
 
 		public static bool ifContainOperations (string exp) => (exp.Contains("(")||exp.Contains(")")||exp.Contains("+")||exp.Contains("-")||exp.Contains("*")||exp.Contains("/")||exp.Contains("^") || exp==("--->>>") || exp.Contains("!"));
 		public static bool ifCommandExists(string exp) => (exp==("sin") || exp==("cos") || exp==("tan") || exp=="arctan"|| exp=="arcCos"|| exp=="arcSin"|| exp=="sinh"|| exp=="cosh"|| exp=="tanh"|| exp=="sec" || exp=="cosec"|| exp=="csc"|| exp=="cot"|| exp=="log"|| exp=="ln" || exp== "rref" || exp== "ref" || exp == "det" || exp == "inv" || exp == "adj" || exp == "identity" || exp == "matIdentity" || exp == "round" || exp== "abs" || exp == "floor" || exp == "ceil" || exp == "sqrt" || exp == "transp");
-
+		public static bool isContainOperations(string exp){
+			return (exp == "(" || exp == ")" || exp == "+" || exp == "-" || exp == "*" || exp == "/" || exp == "^" || exp == "--->>>" || exp == "!");
+		}
 		public static bool isOperation (char character)=> operators.Contains(character.ToString());
 		public static bool isMatrixDeclaration (string exp) => (exp.Contains("[") || exp.Contains("]"));
 		public static bool isBasicOperator (string exp) => (exp.Contains("+")||exp.Contains("-")||exp.Contains("*")||exp.Contains("/") || exp.Contains(")") || exp.Contains("^"));  // tells wehter the operator is a '+ - * /'  function made specifically for the Operator Manager function of the equation head

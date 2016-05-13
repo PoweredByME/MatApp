@@ -224,6 +224,9 @@ namespace MatApp
 			{
 				variable = true; constants = false; prefix = false; functions = false;
 				matfunctions = false;
+				if(theStringInput.Text == ""){
+					theStringInput.Hint = "f(x)";
+				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, sol.theVariableList);
 				theVariableList.Adapter = theVariableAdapter;
@@ -233,6 +236,9 @@ namespace MatApp
 			{
 				variable = false; constants = false; prefix = true; functions = false;
 				matfunctions = false;
+				if(theStringInput.Text == ""){
+					theStringInput.Hint = "f(x)";
+				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, thePrefixList);
 				theVariableList.Adapter = theVariableAdapter;
@@ -242,6 +248,9 @@ namespace MatApp
 			{
 				variable = false; constants = true; prefix = false; functions = false;
 				matfunctions = false;
+				if(theStringInput.Text == ""){
+					theStringInput.Hint = "f(x)";
+				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, theConstantList);
 				theVariableList.Adapter = theVariableAdapter;
@@ -251,6 +260,9 @@ namespace MatApp
 			{
 				variable = false; constants = false; prefix = false; functions = true;
 				matfunctions = false;
+				if(theStringInput.Text == ""){
+					theStringInput.Hint = "f(x)";
+				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, theSimpleFunctionList);
 				theVariableList.Adapter = theVariableAdapter;
@@ -260,6 +272,9 @@ namespace MatApp
 			{
 				variable = false; constants = false; prefix = false; functions = false;
 				matfunctions = true;
+				if(theStringInput.Text == ""){
+					theStringInput.Hint = "[ 3 3 ; 3 3] a 2x2 matrix";
+				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, theMatrixFunctions);
 				theVariableList.Adapter = theVariableAdapter;
