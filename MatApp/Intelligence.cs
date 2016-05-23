@@ -29,25 +29,28 @@ namespace MatappAI
 			if (constants.Contains (toBeAdded) || variables.Contains (toBeAdded) || prefix.Contains (toBeAdded) || function.Contains (toBeAdded) || matfunctions.Contains (toBeAdded)) {
 				if (string.IsNullOrWhiteSpace (theExpression)) {
 					if (function.Contains (toBeAdded)) {
-						Result = " " + toBeAdded + "("; 
+						Result = "" + toBeAdded + "("; 
 					}else if (matfunctions.Contains (toBeAdded)) {
-						Result = " " + toBeAdded + "("; 
+						Result = "" + toBeAdded + "("; 
 					} else {
-						Result = " " + toBeAdded;
+						Result = "" + toBeAdded;
 					}
 				} else if (!(Checker.isOperation (theExpression [theExpression.Length - 1])) && !(theExpression [theExpression.Length - 1] == '=') && !function.Contains (toBeAdded) && !matfunctions.Contains (toBeAdded)) {
-					Result = theExpression + " * " + toBeAdded;
+					Result = "*" + toBeAdded;
 				} else if (!(Checker.isOperation (theExpression [theExpression.Length - 1])) && !(theExpression [theExpression.Length - 1] == '=') && function.Contains (toBeAdded)) {
-					Result = theExpression + " * " + toBeAdded + "(";
+					Result =  "*" + toBeAdded + "(";
 				} else if ((Checker.isOperation (theExpression [theExpression.Length - 1]) || theExpression [theExpression.Length - 1] == '=') && function.Contains (toBeAdded)) {
-					Result = theExpression + " " + toBeAdded + "(";
+					Result = toBeAdded + "(";
 				}else if (!(Checker.isOperation (theExpression [theExpression.Length - 1])) && !(theExpression [theExpression.Length - 1] == '=') && matfunctions.Contains (toBeAdded)) {
-					Result = theExpression + " * " + toBeAdded + "(";
+					Result = "*" + toBeAdded + "(";
 				} else if ((Checker.isOperation (theExpression [theExpression.Length - 1]) || theExpression [theExpression.Length - 1] == '=') && matfunctions.Contains (toBeAdded)) {
-					Result = theExpression + " " + toBeAdded + "(";
+					Result =  toBeAdded + "(";
 				}
 				else {
-					Result = theExpression + " " + toBeAdded;
+					Result =  toBeAdded;
+				}
+				if (toBeAdded == "^(2)") {
+					Result = toBeAdded;
 				}
 			}
 		}		

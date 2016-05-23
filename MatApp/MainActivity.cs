@@ -17,14 +17,16 @@ using System.Runtime.InteropServices;
 using Android.Views.InputMethods;
 using Android.Content;
 using CommandUnderstander;
+using Javax.Microedition.Khronos.Opengles;
+using System.Text;
 
 namespace MatApp
 {
-	[Activity (Label = "MatApp",ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, MainLauncher = true, Icon = "@mipmap/icon")]
+	[Activity (Label = "MatApp",ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, MainLauncher = true, Icon = "@mipmap/ic_launcher")]
 	public class MainActivity : Activity
 	{
 
-		Button enterSolve, enterClear, ShowVariable, ShowPrefix, ShowConstants, ShowFunctions, ShowMatrixFunctions;
+		Button enterSolve, enterClear, ShowVariable, ShowPrefix, ShowConstants, ShowFunctions, ShowMatrixFunctions, ShowVectorFunction;
 		EditText theStringInput;
 		TextView theReportMessageView;
 		ListView theSolutionOutput, theVariableList;
@@ -40,6 +42,8 @@ namespace MatApp
 		List<string>theMatrixFunctions = cUnderstander.getMatrixFunctionList ();
 		List<string>theMatrixFunctionListForIntelligence = cUnderstander.IntelligenceMatricFunctionList ();
 		LinearLayout theSolutionListLayout;
+
+
 		void androidSetup()
 		{
 			enterSolve = FindViewById<Button> (Resource.Id.Solve);
@@ -66,8 +70,10 @@ namespace MatApp
 			factorial = FindViewById<Button> (Resource.Id.Factorial);
 			theStringInput = FindViewById<EditText> (Resource.Id.theInput);
 			theSolutionOutput = FindViewById<ListView> (Resource.Id.theOutputList);
+			ShowVectorFunction = FindViewById<Button> (Resource.Id.ShowVectorFunction);
 			theSolutionOutput.Alpha = 0;
 
+			theStringInput.ClearFocus ();
 			AndroidInterface.theListLayout = theSolutionListLayout;
 			AndroidInterface.theMessageOutputFeild = theReportMessageView;
 			AndroidInterface.OutputListView = theSolutionOutput;
@@ -75,15 +81,20 @@ namespace MatApp
 
 
 			sol = new StringObserver ();
+			theVariableAdapter = new VariableListAdapter(this, theSimpleFunctionList);
+			theVariableList.Adapter = theVariableAdapter;
 
 			theInput = string.Empty;
 			theVariableList.Clickable = true;
 			theVariableList.Divider = null;
 
-			variable = true; prefix = false; constants = false; functions = false;
+			variable = false ; prefix = false; constants = false; functions = true;
 			matfunctions = false;
 
 			androidSideBarButtonAction ();
+
+
+			ShowVectorFunction.Visibility = Android.Views.ViewStates.Gone;
 
 		}
 
@@ -92,6 +103,8 @@ namespace MatApp
 	    protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
+			ActionBar.Hide ();
+			this.Window.ClearFlags(WindowManagerFlags.Fullscreen); //to hide
 			SetContentView (Resource.Layout.Main);
 		    androidSetup ();
 
@@ -135,56 +148,78 @@ namespace MatApp
 
 			plus.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append ("+");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"+");
+                theStringInput.SetSelection (pos+1);              
 			};
 
 			minus.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append ("-");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"-");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			multiply.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append ("*");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"*");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			divide.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append ("/");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"/");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			power.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append("^(");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"^(");
+				theStringInput.SetSelection (pos+2);
 			};
 			semiColon.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append (";");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,";");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			smallBraketEnd.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append (")");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,")");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			factorial.Click += (object sender, EventArgs e) => 
 			{
-			   theStringInput.Append ("!");	
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"!");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			smallBraketStart.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append ("(");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"(");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			squareBraketEnd.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append ("]");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"]");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			squareBraketStart.Click += (object sender, EventArgs e) => 
 			{
-				theStringInput.Append ("[");
+				int pos = theStringInput.SelectionStart;
+				theStringInput.Text = theStringInput.Text.Insert (theStringInput.SelectionStart,"[");
+				theStringInput.SetSelection (pos+1);
 			};
 
 			cleanInput.Click += (object sender, EventArgs e) => 
@@ -201,31 +236,38 @@ namespace MatApp
 				toBeAdded = (thePrefixList[e.Position]);
 			    }else if(constants){
 				toBeAdded = (theConstantList[e.Position]);
+			    toBeAdded = MatApp.theConstantList.constantInputManager (toBeAdded); 
 			    }else if(functions){
 					toBeAdded = theSimpleFunctionList[e.Position];	
 				}else if(matfunctions){
 					toBeAdded = theMatrixFunctions[e.Position];
 					toBeAdded = cUnderstander.matrixFunctionInputManager (toBeAdded);
 				}
-				MatappAI.InputIntelligence intel = new MatappAI.InputIntelligence(theStringInput.Text, toBeAdded);
-				intel.constants = theConstantList;
+				int pos = theStringInput.SelectionStart;
+
+				string theIn = theStringInput.Text;
+				if(!string.IsNullOrWhiteSpace (theIn) && theIn.Length != theStringInput.SelectionStart){
+					theIn = theIn.Remove (theStringInput.SelectionStart);
+				}
+				MatappAI.InputIntelligence intel = new MatappAI.InputIntelligence(theIn, toBeAdded);
+				intel.constants = MatApp.theConstantList.getConstantListForIntelligence ();
 				intel.variables = sol.theVariableList;
 				intel.prefix = thePrefixList;
 				intel.function = theSimpleFunctionList;
 				intel.matfunctions = theMatrixFunctionListForIntelligence;
 				intel.Process ();
-				theStringInput.Text = "";
-				theStringInput.Append (intel.getResult ());
+				string r = intel.getResult ();
+				theStringInput.Text = theStringInput.Text.Insert (pos, r);
+				theStringInput.SetSelection (pos+r.Length);
 			};
-
 
 
 			ShowVariable.Click += (object sender, EventArgs e) => 
 			{
 				variable = true; constants = false; prefix = false; functions = false;
-				matfunctions = false;
+				matfunctions = false;  //
 				if(theStringInput.Text == ""){
-					theStringInput.Hint = "f(x)";
+					theStringInput.Hint = "ƒ(x)";
 				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, sol.theVariableList);
@@ -237,7 +279,7 @@ namespace MatApp
 				variable = false; constants = false; prefix = true; functions = false;
 				matfunctions = false;
 				if(theStringInput.Text == ""){
-					theStringInput.Hint = "f(x)";
+					theStringInput.Hint = "ƒ(x)";
 				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, thePrefixList);
@@ -249,7 +291,7 @@ namespace MatApp
 				variable = false; constants = true; prefix = false; functions = false;
 				matfunctions = false;
 				if(theStringInput.Text == ""){
-					theStringInput.Hint = "f(x)";
+					theStringInput.Hint = "ƒ(x)";
 				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, theConstantList);
@@ -261,7 +303,7 @@ namespace MatApp
 				variable = false; constants = false; prefix = false; functions = true;
 				matfunctions = false;
 				if(theStringInput.Text == ""){
-					theStringInput.Hint = "f(x)";
+					theStringInput.Hint = "ƒ(x)";
 				}
 				androidSideBarButtonAction ();
 				theVariableAdapter = new VariableListAdapter(this, theSimpleFunctionList);
@@ -367,66 +409,3 @@ namespace MatApp
 
 	}  // end class MainActivity.
 }
-
-
-
-/*void androidSetup()
-		{
-			enterSolve = FindViewById<Button> (Resource.Id.enterSolve);
-			theStringInput = FindViewById<EditText> (Resource.Id.TheInput);
-			theErrorOutput = FindViewById<TextView> (Resource.Id.theErrorOutput);
-			theSolutionOutput = FindViewById<ListView> (Resource.Id.OutputListView);
-			enterClear = FindViewById<Button> (Resource.Id.ClearButton);
-
-			AndroidInterface.theListEndTextViewLine = FindViewById<TextView>(Resource.Id.textView12);
-			AndroidInterface.theListEndTextViewLine.Visibility = ViewStates.Invisible;
-			AndroidInterface.OutputListView = theSolutionOutput;
-			AndroidInterface.theContext = this;
-
-			theErrorOutput.Text = "Welcome!";
-
-			sol = new StringObserver();
-			sol.messageOnSolved = "Success";
-			theInput = string.Empty;
-}
-	androidSetup ();
-
-			enterSolve.Click += (object sender, EventArgs e) =>  
-			{
-				androidMatAppProcess ();
-			};
-
-			enterClear.Click += (object sender, EventArgs e) => 
-			{
-				sol.resetExpressionList ();
-				AndroidInterface.resetTheDisplayList ();
-			};
-/// <summary>
-		/// Androids the process. 
-		/// the Process that happens on the 
-		/// click of th buttom
-		/// IT send the input to the control of the app
-		/// </summary>
-	
-		/*v
-
-
-		/// <summary>
-		///   Process for solution code.
-		/// </summary>
-
-		void ProcessStringObserverAndPrintExpression(StringObserver sol)
-		{
-			try{
-				sol.Process();
-			}catch {
-			TheMessageHandler.MessagePrinter.Print("Invalid Formate");
-			}
-			try
-			{
-				sol.Printer();
-			}catch{}
-
-			
-		}
-*/

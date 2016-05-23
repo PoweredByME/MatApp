@@ -74,6 +74,7 @@
     <Compile Include="MatAppAnimation.cs" />
     <Compile Include="pUnderstanders.cs" />
     <Compile Include="VariableListAdapter.cs" />
+    <Compile Include="binCUnderstander.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -103,6 +104,12 @@
     <AndroidResource Include="Resources\layout\theVariablelListAddapter.axml" />
     <AndroidResource Include="Resources\layout\MatAppTitleBar.axml" />
     <AndroidResource Include="Resources\drawable\TitleBarStyle.xml" />
+    <AndroidResource Include="Resources\drawable\logo.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

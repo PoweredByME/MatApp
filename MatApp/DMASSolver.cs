@@ -13,6 +13,7 @@ using System.Threading;
 using Android.Views;
 using Android.Text.Util;
 using Android.Text;
+using Java.Security;
 
 
 namespace EquationSolver
@@ -67,7 +68,7 @@ namespace EquationSolver
 					 if (Division ()) {
 								if (Multiply ()) {
 									if (Add ()) {
-										Solution = theExpressionList [theExpressionList.IndexOf (getExpression (theBatch [0]))];
+										Solution = theExpressionList [theExpressionList.IndexOf (getExpression (theBatch [0].TrimStart ("-".ToCharArray ())))];
 									}
 								}
 							}
@@ -356,7 +357,10 @@ namespace EquationSolver
 						Number rnum = new Number (rexp.getNumber ());
 						if (lhs.Contains ("-")) {
 							lnum.setNumber (-1 * lnum.getNumber ());
-							theBatch [counter - 1] = theBatch [counter - 1].TrimStart ("-".ToCharArray ());
+							if (rnum.getNumber () % 2 == 0)
+								theBatch [counter - 1] = theBatch [counter - 1];//.TrimStart ("-".ToCharArray ());
+							else
+								theBatch [counter - 1] = theBatch [counter - 1].TrimStart ("-".ToCharArray ());
 							}
 						if (rhs.Contains ("-")) {
 							rnum.setNumber (-1 * rnum.getNumber ());
@@ -447,6 +451,17 @@ namespace EquationSolver
 			return solved;
             
 		}
+
+		bool binCommandSolver()
+		{
+			bool solved = true;
+			int counter = 0;
+			while (counter < theBatch.Count) {
+				//string theOperator = th
+			}
+			return solved;
+		}
+
 
 		double Factorial (double num){
 			if (num == 1) {

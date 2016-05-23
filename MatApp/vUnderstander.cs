@@ -34,7 +34,7 @@ namespace virtualUnderstander
 		{
 			if (Checker.isNumberDeclaration (givenExpression) && !Checker.ifContainOperations(givenExpression)) {
 				MakeNumber ();
-			} else if (Checker.isMatrixDeclaration (givenExpression) && !Checker.ifContainOperations(givenExpression)) {
+			} else if (Checker.isMatrixDeclaration (givenExpression) && !Checker.ifContainMatOperations(givenExpression) && Checker.isMinusIncludedInMatrix (givenExpression) ) {
 				MakeMatrix ();
 			} else {
 				if (Checker.ifContainOperations (givenExpression)) {    // if the expression is a mathematical one.

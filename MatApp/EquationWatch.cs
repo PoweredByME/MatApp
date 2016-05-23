@@ -13,12 +13,16 @@ using Java.Security;
 using System.Runtime.InteropServices;
 using MatApp;
 using Android.Util;
+using Android.Database;
+using System.Text;
+using Java.Text;
+using allSolverInterface;
 
 
 
 namespace EquationHead
 {
-	public class EquationWatch
+	public class EquationWatch : Solver 
 	{
 		List<Expression>theExpressionList;
 		List<Expression>theInputExpressionList;  
@@ -56,10 +60,19 @@ namespace EquationHead
 
 		void  ProcessString()
 		{
+			bool matrix = false;
 			string dumy = "";
 			foreach (char c in givenExpression) {   //logic to make the theBatch list
-				if (Checker.isOperation (c)) {
-					if (!string.IsNullOrWhiteSpace (dumy)) {
+				if (c == '[') {
+					matrix = true;
+				}
+
+				if ( !matrix && Checker.isOperation (c)) {
+					if (c == '[') {
+						matrix = true;
+					}
+
+					if (!matrix && !string.IsNullOrWhiteSpace (dumy)) {
 						dumy = dumy.Trim ();
 						theBatch.Add (dumy);
 						theBatch.Add (c.ToString ());
@@ -69,14 +82,26 @@ namespace EquationHead
 							break;
 						}
 						dumy = "";
-					} else {
-						theBatch.Add (c.ToString ());
+					}
 
+					else {
+						theBatch.Add (c.ToString ());
 						dumy = "";
 					}
+
+
+					if (c == ']') {
+						matrix = false;
+					}
+
 				} else {
 					dumy += c.ToString ();
 				}
+
+				if (c == ']') {
+					matrix = false;
+				}
+
 			}    //end foreach for thebatch making.
 			if (!string.IsNullOrWhiteSpace (dumy)) {
 				dumy = dumy.Trim ();
@@ -103,10 +128,10 @@ namespace EquationHead
 			while (counter < theBatch.Count) {
 				string x = theBatch [counter];
 				bool alreadyExists = AlreadyExists (x);
-				if (!Checker.ifContainOperations (x)) {
+				if ((!Checker.ifContainOperations (x) || !Checker.ifContainMatOperations (x)) && x != "-") {
 					if (!alreadyExists && getExpression (x)) {
 						theExpressionList.Add (theRequredExpression);
-					} else if (Checker.isNumberDeclaration (x)) {
+					} else if (Checker.isNumberDeclaration (x) && x != "-") {
 						Number num = new Number ();
 						num.setTag (autoNamer ());
 						num.setNumber (double.Parse (x));
@@ -213,3 +238,4 @@ namespace EquationHead
 }  // end namespace EquationHead
 
 
+//

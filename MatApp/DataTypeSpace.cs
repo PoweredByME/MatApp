@@ -1,6 +1,8 @@
 ﻿using System;
 using StaticClasses;
 using System.Globalization;
+using Android.Content;
+
 namespace DataTypeSpace
 {
 	public class Matrix  //matrix class starts
@@ -10,6 +12,34 @@ namespace DataTypeSpace
 		private OperationsClass theOperations =  new OperationsClass();
 		private static OperationsClass staticOperations =  new OperationsClass();
 		private string tag;
+
+		// code for magic matrix
+
+
+
+		//code for magice matrix
+		// code to find the rank of the matrix
+		public int rank(Matrix m)
+		{
+			int r = 0;
+			int numofrows = m.getRows();
+			int numofcols = m.getColumns();
+			Matrix temp = m;
+			bool rowvalue = false;
+			temp.GaussJordan();
+			for (int i=0;i<numofrows;i++)
+			{
+				for (int j=0;j< numofcols;j++)
+				{
+					if (temp.getElement(i + 1, j + 1) == 0) continue;
+					rowvalue = true;
+					r++;
+					break;
+				}
+				if (rowvalue == false) return r;
+			}
+			return r;
+		}
 
 		public Matrix(Matrix theOther)
 		{
@@ -54,6 +84,202 @@ namespace DataTypeSpace
 			}
 		}
 
+		public double getdetreminant(Matrix theMatrix)    //getdeterminant interface
+		{
+			double[,] matrix = theMatrix.getMatrixArray();
+			int mRows = theMatrix.getRows();
+			int mCols = theMatrix.getColumns();
+			return determinant1(matrix, mRows, mCols);
+		}
+
+		private Matrix rowaddition(Matrix m, int row1, int row2, double factor)
+		{
+			int col = m.getColumns();
+			for (int i = 0; i < col; i++)
+			{
+				m.setElement(m.getElement(row2 + 1, i + 1) + factor * m.getElement(row1 + 1, i + 1), row2 + 1, i + 1);
+			}
+			return m;
+		}
+		private Matrix rowdivision(double factor, Matrix m, int rownum, int col)
+		{
+			for (int i = 0; i < col; i++)
+			{
+				double tempvalue = m.getElement(rownum + 1, i + 1);
+				tempvalue /= factor;
+				m.setElement(tempvalue, rownum + 1, i + 1);
+			}
+			return m;
+		}
+
+		private void rowswap(Matrix m, int row1, int row2)
+		{
+			int c = m.getColumns();
+			for (int i = 0; i < c; i++)
+			{
+				double num1, num2;
+				num1 = m.getElement(row1 + 1, i + 1);
+				num2 = m.getElement(row2 + 1, i + 1);
+				m.setElement(num1, row2 + 1, i + 1);
+				m.setElement(num2, row1 + 1, i + 1);
+			}
+		}
+		private double determinant1(double[,] matrix, int rows, int cols)   //determinant implementation 
+		{
+			if (rows == cols)
+			{
+				if (rows == 1)
+				{
+					return matrix[0, 0];
+				}
+				else if (rows == 2)
+				{
+					return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+				}
+				else
+				{
+					double multiplier = 1;
+					bool rowvalue = false;
+					Matrix temp = new Matrix(rows, cols);
+					for (int j = 0; j < cols; j++)
+					{
+						for (int i = 0; i < rows; i++)
+						{
+							temp.setElement(matrix[i, j], i + 1, j + 1);
+						}
+					}
+					for (int j = 0; j < cols; j++)
+					{
+						for (int i = 0; i < rows; i++)
+						{
+							if (temp.getElement(i + 1, j + 1) == 0) continue;
+							rowvalue = true;
+							double first = temp.getElement(i + 1, j + 1);
+							multiplier *= first;
+							temp = rowdivision(first, temp, i, rows);
+							Console.WriteLine("");
+							for (int k = i + 1; k < rows; k++)
+								temp = rowaddition(temp, i, k, -1 * temp.getElement(k + 1, j + 1));
+							if (i != 0)
+							{
+								rowswap(temp, i, 0);
+								multiplier *= -1;
+							}
+							if (rows == 3)
+							{
+								return multiplier * (temp.getElement(2, 2) * temp.getElement(3, 3) - temp.getElement(2, 3) * temp.getElement(3, 2));
+							}
+							else
+							{
+								double[,] newarray = new double[rows - 1, rows - 1];
+								for (int z = 0; z < rows - 1; z++)
+								{
+									for (int s = 0; s < rows - 1; s++)
+									{
+										newarray[z, s] = temp.getElement(z + 2, s + 2);
+									}
+								}
+								return multiplier * determinant1(newarray, rows - 1, rows - 1);
+							}
+						}
+						if (rowvalue == false) return 0;
+					}
+				}
+			}
+			else
+			{
+				Console.WriteLine("The determinant of the matrix doesnot exist.Sorry.");
+				return 0;
+			}
+			return 0;
+		}
+
+		// vector solving code
+		public double dotproduct(Matrix m1, Matrix m2)
+		{
+			if (m1.getRows() != m2.getRows() || m1.getColumns() != 1 || m2.getColumns() != 1)
+			{
+				Console.WriteLine("Sorry dot product not possible");
+				return 0;
+			}
+			double dotp = 0;
+			for (int i = 0; i < m1.getRows(); i++)
+			{
+				dotp += m1.getElement(i + 1, 1) * m2.getElement(i + 1, 1);
+			}
+			return dotp;
+		}
+		public Matrix crossproduct(Matrix m1, Matrix m2)
+		{
+			Matrix m = new Matrix(m1.getRows(), 1);
+			if (m1.getRows() != m2.getRows() || m1.getColumns() != 1 || m2.getColumns() != 1 || m1.getRows() != 3)
+			{
+				return m;
+			}
+			m.setElement(m1.getElement(2, 1) * m2.getElement(3, 1) - m2.getElement(2, 1) * m1.getElement(3, 1), 1, 1);
+			m.setElement(m1.getElement(1, 1) * m2.getElement(3, 1) - m1.getElement(3, 1) * m2.getElement(1, 1), 2, 1);
+			m.setElement(m1.getElement(1, 1) * m2.getElement(2, 1) - m1.getElement(2, 1) * m2.getElement(1, 1), 3, 1);
+			return m;
+		}
+		public Matrix crossproduct(double vector1x, double vector1y, double vector1z, double vector2x, double vector2y, double vector2z)
+		{
+			Matrix m = new Matrix(3, 1);
+			m.setElement(vector1y * vector2z - vector1z * vector2y, 1, 1);
+			m.setElement(vector1x * vector2z - vector1z * vector2x, 2, 1);
+			m.setElement(vector1x * vector2y - vector2x * vector1y, 3, 1);
+			return m;
+		}
+		// vector solving code.
+
+
+		public Matrix Inverse1(Matrix m)
+		{
+
+			if (getdetreminant(m) == 0)
+			{
+				Console.WriteLine("The inverse does not exist.Returning original value");
+				return m;
+			}
+			else
+			{
+				int r = m.getRows();
+				int c = m.getColumns();
+				Matrix temp = m;
+				Matrix temp2 = new Matrix(r, c);
+				Matrix Bigmat = new Matrix(r, 2 * r);
+				for (int i = 0; i < r; i++)
+				{
+					for (int j = 0; j < c; j++)
+					{
+						if (i == j) temp2.setElement(1, i + 1, j + 1);
+						else temp2.setElement(0, i + 1, j + 1);
+					}
+				}
+				for (int i = 0; i < r; i++)
+				{
+					for (int j = 0; j < r; j++)
+					{
+						Bigmat.setElement(temp.getElement(i + 1, j + 1), i + 1, j + 1);
+					}
+				}
+				for (int i = 0; i < r; i++)
+				{
+					for (int j = r; j < 2 * r; j++)
+					{
+						Bigmat.setElement(temp2.getElement(i + 1, j - r + 1), i + 1, j + 1);
+					}
+				}
+				Bigmat.GaussJordan();
+				for (int i = 0; i < r; i++)
+				{
+					for (int j = 0; j < r; j++)
+					{
+						temp2.setElement(Bigmat.getElement(i + 1, j + r + 1), i + 1, j + 1);
+					}
+				}
+				return temp2;
+			}
+		}
 		public void Identity()
 		{
 			for (int c = 0; c < mRows; c++) {

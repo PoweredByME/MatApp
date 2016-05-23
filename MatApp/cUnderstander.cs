@@ -4,18 +4,32 @@ using DataTypeSpace;
 using StaticClasses;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using Android.Animation;
+using Android.Nfc.CardEmulators;
+using Java.Security;
+using Android.Graphics.Drawables;
+using Android.Util;
+using System.Runtime.InteropServices.ComTypes;
+using Android.Drm;
+using MatApp;
+using Org.Apache.Http.Protocol;
+using Javax.Crypto;
+using System.Security.Cryptography;
+using Android.Nfc.Tech;
 
 namespace CommandUnderstander
 {
 	public class cUnderstander : Solver
 	{
-		string LHS, RHS;
+		string LHS, RHS, rLHS, rRHS;
 		bool Processed = true;
 		Expression solution, rexp;
 		public cUnderstander(string lhs , string rhs, Expression rexp)
 		{
-			LHS = lhs;
-			RHS = rhs;
+			rLHS = lhs;
+			rRHS = rhs;
+			LHS = lhs.TrimStart ("-".ToCharArray ());
+			RHS = rhs.TrimStart ("-".ToCharArray ());
 			this.rexp = rexp;
 			Observe ();
 		}
@@ -68,6 +82,9 @@ namespace CommandUnderstander
 						ans.setNumber (Ans);
 						ans.setTag (autoNamer ());
 					}
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
 				}
 			}    // end if for sin
@@ -83,7 +100,10 @@ namespace CommandUnderstander
 						Ans = 0;
 					    ans.setNumber (Ans);
 						ans.setTag (autoNamer ());
-						
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
 				}
 			}    // end if for cos
@@ -99,6 +119,10 @@ namespace CommandUnderstander
 						Ans = 46 * Math.Pow (45, 7986);
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
 				}
 			}    // end if for tan
@@ -112,8 +136,12 @@ namespace CommandUnderstander
 					double Ans = Math.Acos((rexp.getNumber ().getNumber ()));
 					ans.setNumber ( Ans * 180 / Math.PI);
 					ans.setTag (autoNamer ());
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
-				}
+					}
 			}    // end if for Acos
 
 
@@ -140,6 +168,10 @@ namespace CommandUnderstander
 					double Ans = Math.Atan((rexp.getNumber ().getNumber ()));
 					ans.setNumber ( Ans* 180 / Math.PI);
 					ans.setTag (autoNamer ());
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
 				}
 			}    // end if for atan
@@ -153,6 +185,10 @@ namespace CommandUnderstander
 					double Ans = Math.Sinh ((rexp.getNumber ().getNumber ()));// * Math.PI / 180);
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
 				}
 			}    // end if for atan
@@ -167,7 +203,9 @@ namespace CommandUnderstander
 					double Ans = Math.Cosh ((rexp.getNumber ().getNumber ()));// * Math.PI / 180);
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
-					solution = new Expression(ans);
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}solution = new Expression(ans);
 				}
 			}    // end if for atan
 
@@ -181,6 +219,10 @@ namespace CommandUnderstander
 					double Ans = Math.Tanh ((rexp.getNumber ().getNumber ()));// * Math.PI / 180);
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
 				}
 			}    // end if for atan
@@ -197,6 +239,10 @@ namespace CommandUnderstander
 						Ans = 456*Math.Pow (256, 4456);
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
 				}
 			}    // end if for atan
@@ -212,6 +258,10 @@ namespace CommandUnderstander
 						Ans = 234 * Math.Pow (345, 999);
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression(ans);
 				}
 			}    // end if for atan
@@ -225,7 +275,10 @@ namespace CommandUnderstander
 					double Ans = 1/(Math.Tan((rexp.getNumber ().getNumber ()) * Math.PI / 180));
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
-					solution = new Expression(ans);
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}solution = new Expression(ans);
 				}
 			}    // end if for atan
 
@@ -238,7 +291,10 @@ namespace CommandUnderstander
 					double Ans = Math.Log10 (rexp.getNumber ().getNumber ());
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
-					solution = new Expression(ans);
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}solution = new Expression(ans);
 				}
 			}    // end if for atan
 
@@ -251,7 +307,10 @@ namespace CommandUnderstander
 					double Ans = Math.Log (rexp.getNumber ().getNumber ());
 					ans.setNumber ( Ans);
 					ans.setTag (autoNamer ());
-					solution = new Expression(ans);
+
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}solution = new Expression(ans);
 				}
 			}    // end if for atan
 
@@ -263,7 +322,10 @@ namespace CommandUnderstander
 					Matrix mat = new Matrix (rexp.getMatrix ());
 					mat.GaussJordan ();
 					mat.setTag (autoNamer ());
-					solution = new Expression (mat);
+
+					if (rLHS.Contains ("-")) {
+						mat = mat * -1;
+					}solution = new Expression (mat);
 				}
 			}
 
@@ -275,7 +337,10 @@ namespace CommandUnderstander
 					Matrix mat = new Matrix (rexp.getMatrix ());
 					mat = mat.getTranspose ();
 					mat.setTag (autoNamer ());
-					solution = new Expression (mat);
+
+					if (rLHS.Contains ("-")) {
+						mat = mat * -1;
+					}solution = new Expression (mat);
 				}
 			}
 
@@ -286,10 +351,14 @@ namespace CommandUnderstander
 				} else if(rexp.getExpType () == 1){
 					Matrix mat = new Matrix (rexp.getMatrix ());
 					if (mat.getRows () == mat.getColumns ()) {
-						double det = mat.determinant ();
+						double det = mat.getdetreminant(mat);
 						if (det != 0) {
-							mat = mat.getInverse (det);
+							mat = mat.Inverse1 (mat);
 							mat.setTag (autoNamer ());
+
+							if (rLHS.Contains ("-")) {
+								mat = mat * -1;
+							}
 							solution = new Expression (mat);
 						} else {
 							TheMessageHandler.MessagePrinter.Print ("Determinant is zero. Inverse does not exist");
@@ -312,7 +381,10 @@ namespace CommandUnderstander
 					Matrix mat = new Matrix (rexp.getMatrix ());
 					mat.GaussElimination ();
 					mat.setTag (autoNamer ());
-					solution = new Expression (mat);
+
+					if (rLHS.Contains ("-")) {
+						mat = mat * -1;
+					}solution = new Expression (mat);
 				}
 			}
 
@@ -323,10 +395,13 @@ namespace CommandUnderstander
 				} else if (rexp.getExpType () == 1) {
 					Matrix mat = new Matrix (rexp.getMatrix ());
 					if (mat.getColumns () == mat.getRows ()) {
-						double ans = mat.determinant ();
+						double ans = mat.getdetreminant(mat);
 						Number Ans = new Number ();
 						Ans.setNumber (ans);
 						Ans.setTag (autoNamer ());
+						if (rLHS.Contains ("-")) {
+							Ans.setNumber (-1*Ans.getNumber ());
+						}
 						solution = new Expression (Ans);
 					} else {
 						Processed = false;
@@ -344,6 +419,9 @@ namespace CommandUnderstander
 					if (mat.getColumns () == mat.getRows ()) {
 						mat = mat.getAdjoint ();
 						mat.setTag (autoNamer ());
+						if (rLHS.Contains ("-")) {
+							mat = -1 * mat;
+						}
 						solution = new Expression (mat);
 					} else {
 						Processed = false;
@@ -361,6 +439,9 @@ namespace CommandUnderstander
 					Matrix iden = new Matrix ((int)size,(int)size);
 					iden.Identity ();
 					iden.setTag (autoNamer ());
+					if (rLHS.Contains ("-")) {
+						iden = iden * -1;
+					}
 					solution = new Expression (iden);
 				}
 			}
@@ -378,6 +459,9 @@ namespace CommandUnderstander
 					Number ans = new Number ();
 					ans.setNumber (num);
 					ans.setTag (autoNamer ());
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression (ans);
 				}
 			}
@@ -395,6 +479,9 @@ namespace CommandUnderstander
 					Number ans = new Number ();
 					ans.setNumber (num);
 					ans.setTag (autoNamer ());
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression (ans);
 				}
 			}
@@ -412,6 +499,9 @@ namespace CommandUnderstander
 					Number ans = new Number ();
 					ans.setNumber (num);
 					ans.setTag (autoNamer ());
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression (ans);
 				}
 			}
@@ -429,11 +519,14 @@ namespace CommandUnderstander
 					Number ans = new Number ();
 					ans.setNumber (num);
 					ans.setTag (autoNamer ());
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression (ans);
 				}
 			}
 
-			if (LHS == "sqrt") {
+			if (LHS == "√") {
 				if (rexp.getExpType () == 1) {
 					Processed = false;
 					TheMessageHandler.MessagePrinter.Print ("Invalid Arguments");
@@ -446,17 +539,40 @@ namespace CommandUnderstander
 					Number ans = new Number ();
 					ans.setNumber (num);
 					ans.setTag (autoNamer ());
+					if (rLHS.Contains ("-")) {
+						ans.setNumber (-1*ans.getNumber ());
+					}
 					solution = new Expression (ans);
 				}
 			}
-				
+
+			if (LHS == "rank") {
+				if (rexp.getExpType () == 2) {
+					Processed = false;
+					TheMessageHandler.MessagePrinter.Print ("Invalid Arguments");
+				} else {
+					Matrix mat = new Matrix (rexp.getMatrix ());
+					double rank = mat.rank (mat);
+					Number theRank = new Number ();
+					theRank.setNumber (rank);
+					theRank.setTag (autoNamer ());
+					if (rLHS.Contains ("-")) {
+						theRank.setNumber (-1*theRank.getNumber ());
+					}
+					solution = new Expression (theRank);
+  				}
+
+			}
+
 			}    //end observer
+			
 
 
 		public static List<string> getFunctionList()
 		{
 			List<string> theFunctionList = new List<string> ();
-			theFunctionList.Add ("sqrt"); 
+			theFunctionList.Add ("^(2)");
+			theFunctionList.Add ("√"); 
 			theFunctionList.Add ("sin");
 			theFunctionList.Add ("cos");
 			theFunctionList.Add ("tan");
@@ -488,7 +604,16 @@ namespace CommandUnderstander
 			theFunctionList.Add ("Identity"); 
 			theFunctionList.Add ("Reduced\n  Row\n  Echelon");
 			theFunctionList.Add ("Row\n  Echelon"); 
+			theFunctionList.Add ("Rank"); 
 			return theFunctionList;
+		}
+
+		public static List<string> getVectorFunctionList()
+		{
+			List<string> theVectorList = new List<string> ();
+			theVectorList.Add ("cross");
+			theVectorList.Add ("dot");
+			return theVectorList;
 		}
 
 		public static string matrixFunctionInputManager(string exp)
@@ -508,6 +633,8 @@ namespace CommandUnderstander
 				result = "ref";
 			} else if (exp == "Identity") {
 				result = "identity";
+			} else if (exp == "Rank") {
+				result = "rank";
 			}
 			return result;
 		}
@@ -522,6 +649,7 @@ namespace CommandUnderstander
 			theFunctionList.Add ("rref");
 			theFunctionList.Add ("ref"); 
 			theFunctionList.Add ("identity"); 
+			theFunctionList.Add ("rank"); 
 			return theFunctionList;
 		}
 

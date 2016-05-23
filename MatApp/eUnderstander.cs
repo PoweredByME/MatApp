@@ -10,10 +10,11 @@ using DataTypeSpace;
 /// </summary>
 using MatApp;
 using CommandUnderstander;
+using allSolverInterface;
 
 namespace equationUnderstander
 {
-	public class eUnderstander
+	public class eUnderstander :Solver
 	{
 		List <Expression> theExpressionList;
 		Expression result;
@@ -29,6 +30,9 @@ namespace equationUnderstander
 			this.Obeserver ();
 
 		}
+
+		public Expression getSolution() => result;
+
 		public bool isProcessed () => Processed;
 		public Expression getResult () {
 			result.setStatement (RHS);
@@ -51,7 +55,7 @@ namespace equationUnderstander
 			} else {
 				if (!Checker.ifContainOperations(RHS) && Checker.isNumberDeclaration (RHS)) {  // if the string is a Numeric Declaration.
 					NumberMaker();
-				} else if (!Checker.ifContainOperations(RHS) && Checker.isMatrixDeclaration (RHS)) {  // if the string is a Matrix Declaration.
+				} else if (!Checker.ifContainMatOperations(RHS) && Checker.isMatrixDeclaration (RHS) && Checker.isMinusIncludedInMatrix (RHS)) {  // if the string is a Matrix Declaration.
 					MatrixMaker();
 				} else {
 					if (SearchList (RHS)) {    // THIS DEALS WITH THE REASSIGNMENT LIKE A = B 

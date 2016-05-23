@@ -23,6 +23,12 @@
 /Users/apple/Projects/MatApp/MatApp/obj/Release/res/layout/thevariablellistaddapter.xml
 /Users/apple/Projects/MatApp/MatApp/obj/Release/res/layout/matapptitlebar.xml
 /Users/apple/Projects/MatApp/MatApp/obj/Release/res/drawable/titlebarstyle.xml
+/Users/apple/Projects/MatApp/MatApp/obj/Release/res/drawable/logo.png
+/Users/apple/Projects/MatApp/MatApp/obj/Release/res/mipmap-hdpi/ic_launcher.png
+/Users/apple/Projects/MatApp/MatApp/obj/Release/res/mipmap-mdpi/ic_launcher.png
+/Users/apple/Projects/MatApp/MatApp/obj/Release/res/mipmap-xhdpi/ic_launcher.png
+/Users/apple/Projects/MatApp/MatApp/obj/Release/res/mipmap-xxhdpi/ic_launcher.png
+/Users/apple/Projects/MatApp/MatApp/obj/Release/res/mipmap-xxxhdpi/ic_launcher.png
 /Users/apple/Projects/MatApp/MatApp/obj/Release/R.cs.flag
 /Users/apple/Projects/MatApp/MatApp/bin/Release/poweredbyme.matapp-Signed.apk
 /Users/apple/Projects/MatApp/MatApp/obj/Release/uploadflags.txt
