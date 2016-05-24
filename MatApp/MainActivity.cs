@@ -239,6 +239,8 @@ namespace MatApp
 			    toBeAdded = MatApp.theConstantList.constantInputManager (toBeAdded); 
 			    }else if(functions){
 					toBeAdded = theSimpleFunctionList[e.Position];	
+					toBeAdded = (cUnderstander.binCommandInputManager (toBeAdded));
+
 				}else if(matfunctions){
 					toBeAdded = theMatrixFunctions[e.Position];
 					toBeAdded = cUnderstander.matrixFunctionInputManager (toBeAdded);

@@ -13,7 +13,7 @@ namespace StaticClasses
 	{// 
 		//static string alphabets = "";
 		static string numbers = "-0123456789.";
-		static string operators = "()*+-/^!PC";
+		static string operators = "()*+-/^!PC•";
 	//	static string Alphabets = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMONPQRSTUVWXYZ_";
 		public static bool isEquation (string exp) => exp.Contains("=");
 		public static int getOccurance (string exp, char character)  // returns the occuracences of a specific character.
@@ -34,18 +34,18 @@ namespace StaticClasses
 		}
 
 
-		public static bool ifContainOperations (string exp) => (exp.Contains("(")||exp.Contains(")")||exp.Contains("+")||exp.Contains("-")||exp.Contains("*")||exp.Contains("/")||exp.Contains("^") || exp==("--->>>") || exp.Contains("!"));
-		public static bool ifContainMatOperations (string exp) => (exp.Contains("(")||exp.Contains(")")||exp.Contains("+")||exp.Contains("*")||exp.Contains("/")||exp.Contains("^") || exp==("--->>>") || exp.Contains("!"));
+		public static bool ifContainOperations (string exp) => (exp.Contains("•") || exp.Contains("P") || exp.Contains("C")|| exp.Contains("(")||exp.Contains(")")||exp.Contains("+")||exp.Contains("-")||exp.Contains("*")||exp.Contains("/")||exp.Contains("^") || exp==("--->>>") || exp.Contains("!"));
+		public static bool ifContainMatOperations (string exp) => (exp.Contains("•") || exp.Contains("P") || exp.Contains("C")|| exp.Contains("(")||exp.Contains(")")||exp.Contains("+")||exp.Contains("*")||exp.Contains("/")||exp.Contains("^") || exp==("--->>>") || exp.Contains("!"));
 
 		public static bool ifCommandExists(string Rexp) { 
 			string exp = Rexp.TrimStart ("-".ToCharArray ());
 			return(exp == ("sin") || exp == ("cos") || exp == ("tan") || exp == "arctan" 
-				|| exp == "arcCos" || exp == "arcSin" || exp == "sinh" || exp == "cosh" || exp == "tanh" || exp == "sec" || exp == "cosec" || exp == "csc" || exp == "cot" || exp == "log" || exp == "ln" || exp == "rref" || exp == "ref" || exp == "det" || exp == "inv" || exp == "adj" || exp == "identity" ||
+				|| exp == "arcÇos" || exp == "arcSin" || exp == "sinh" || exp == "cosh" || exp == "tanh" || exp == "sec" || exp == "cosec" || exp == "csc" || exp == "cot" || exp == "log" || exp == "ln" || exp == "rref" || exp == "ref" || exp == "det" || exp == "inv" || exp == "adj" || exp == "identity" ||
 				exp == "matIdentity" || exp == "round" || exp == "abs" || exp == "floor" || exp == "ceil" || exp == "√" || 
 				exp == "transp" || exp == "rank" || exp == "magic");
 		}
 		public static bool isContainOperations(string exp){
-			return (exp == "P" || exp == "C" || exp == "(" || exp == ")" || exp == "+" || exp == "-" || exp == "*" || exp == "/" || exp == "^" || exp == "--->>>" || exp == "!");
+			return (exp== "•" || exp == "P" || exp == "C" || exp == "(" || exp == ")" || exp == "+" || exp == "-" || exp == "*" || exp == "/" || exp == "^" || exp == "--->>>" || exp == "!");
 		}
 		public static bool isOperation (char character)=> operators.Contains(character.ToString());
 		public static bool isMatrixDeclaration (string exp) => (exp.Contains("[") || exp.Contains("]"));
@@ -53,10 +53,7 @@ namespace StaticClasses
 		public static bool isConstant(string exp){
 			return (exp == "π" || exp == "e" || exp == "numAddIdentity" || exp == "numMultIdentity" || exp == "G" || exp == "g" || exp == "me" || exp == "mn" || exp == "mp" || exp == "h" || exp == "Na");
 		}
-		public static bool isBinaryCommand(string exp)
-		{
-			return(exp == "cross" || exp == "dot");
-		}
+
 		public static bool isNumberDeclaration (string exp)
 		{ 
 			bool numeric = true;
@@ -89,6 +86,11 @@ namespace StaticClasses
 				}
 			}
 			return nummeric;
+		}
+
+		public static bool isBinCommand(string exp)
+		{
+			return (exp == "P" || exp == "C" || exp == "•");
 		}
 
 		public static bool MatrixEquivalent (Matrix lhs, Matrix rhs) => (lhs.getRows()== rhs.getRows() && lhs.getColumns() == rhs.getColumns());

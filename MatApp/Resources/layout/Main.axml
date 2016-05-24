@@ -32,14 +32,15 @@
                 android:padding="7dp"
                 android:layout_height="match_parent"
                 android:id="@+id/imageButton1"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:tint="#ff212121" />
         </FrameLayout>
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/BasicLinearLayoutStyle"
+        android:background="#ffe0f2f1"
         android:minWidth="25px"
         android:minHeight="25px">
         <LinearLayout
@@ -49,9 +50,9 @@
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/EditTextLinearLayoutStyle"
             android:id="@+id/linearLayout1"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:background="@drawable/edittextstyle">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,13 +75,17 @@
                 android:shadowDy="0"
                 android:shadowRadius="1"
                 android:textColor="@android:color/black"
-                android:background="@drawable/EditTextStyle" />
+                android:background="@android:color/transparent" />
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:id="@+id/textView22"
-            android:background="#000000" />
+            android:background="#000000"
+            android:shadowColor="#ff546e7a"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="5" />
         <LinearLayout
             android:orientation="vertical"
             android:minWidth="25px"
@@ -115,7 +120,7 @@
                         android:layout_height="match_parent"
                         android:weightSum="100"
                         android:id="@+id/SideBarLayout"
-                        android:background="@drawable/sidebarstyle">
+                        android:background="#ff546e7a">
                         <LinearLayout
                             android:orientation="vertical"
                             android:minWidth="25px"
@@ -229,7 +234,8 @@
                         android:minHeight="25px"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/frameLayout1">
+                        android:id="@+id/frameLayout1"
+                        android:background="#fffafafa">
                         <LinearLayout
                             android:orientation="vertical"
                             android:minWidth="25px"
@@ -250,11 +256,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:id="@+id/ReportMessageView"
-                            android:textColor="#ff929292"
+                            android:textColor="#ff607d8b"
                             android:typeface="serif"
                             android:textSize="17dp"
                             android:textStyle="normal"
-                            android:background="@drawable/basiclinearlayoutstyle"
+                            android:background="#fffafafa"
                             android:shadowColor="#ff000000"
                             android:shadowDx="0 "
                             android:shadowDy="1" />
@@ -274,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:weightSum="100"
-                android:background="@drawable/BottomActionBarStyle"
+                android:background="@drawable/bottomactionbarstyle"
                 android:id="@+id/bottomActionBar">
                 <HorizontalScrollView
                     android:minWidth="25px"

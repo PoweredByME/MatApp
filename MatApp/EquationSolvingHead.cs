@@ -234,7 +234,7 @@ namespace EquationSolvingHead
 							}
 						}
 					} else if (x == ")") {       // logic if there is no operator after ")" operator
-						if (counter + 1 != theBatch.Count && !Checker.isBasicOperator (theBatch [counter + 1]) && theBatch[counter+1] != "!") {
+						if (counter + 1 != theBatch.Count && !Checker.isBasicOperator (theBatch [counter + 1]) && theBatch[counter+1] != "!" && !Checker.isBinCommand (theBatch[counter+1])) {
 							theBatch.Insert (counter + 1, "*");
 						}
 					} else if (x == "!") {
@@ -256,7 +256,7 @@ namespace EquationSolvingHead
 						}
 					}
 					else {     //else if the situtation like a(a) occurs it does this a*(a)
-					if(counter + 1 != theBatch.Count && theBatch [counter + 1] == "(") {
+						if(counter + 1 != theBatch.Count && theBatch [counter + 1] == "(" && !Checker.isBinCommand (theBatch[counter])) {
 						theBatch.Insert (counter + 1, "*");
 					}
 				}

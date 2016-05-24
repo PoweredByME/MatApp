@@ -4,6 +4,7 @@ using MatApp;
 using StaticClasses;
 using System.Runtime.Remoting.Messaging;
 using Android.OS;
+using CommandUnderstander;
 
 namespace MatappAI
 {
@@ -52,6 +53,10 @@ namespace MatappAI
 				if (toBeAdded == "^(2)") {
 					Result = toBeAdded;
 				}
+
+			}
+			if (cUnderstander.IntelligenceBinFunctionList ().Contains (toBeAdded)) {
+				Result = toBeAdded;
 			}
 		}		
      }

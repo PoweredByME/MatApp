@@ -15,6 +15,188 @@ namespace DataTypeSpace
 
 		// code for magic matrix
 
+		private Matrix Matrixbuilder(Matrix m1, Matrix m2, Matrix m3, Matrix m4)
+		{
+			int rows = m1.getRows();
+			int columns = m1.getColumns();
+			Matrix temp = new Matrix(2 * rows, 2 * columns);
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < columns; j++)
+				{
+					temp.setElement(m1.getElement(i + 1, j + 1), i + 1, j + 1);
+				}
+			}
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < columns; j++)
+				{
+					temp.setElement(m2.getElement(i + 1, j + 1), i + rows + 1, j + 1);
+				}
+			}
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < columns; j++)
+				{
+					temp.setElement(m3.getElement(i + 1, j + 1), i + 1, j + columns + 1);
+				}
+			}
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < columns; j++)
+				{
+					temp.setElement(m4.getElement(i + 1, j + 1), i + rows + 1, j + columns + 1);
+				}
+			}
+			return temp;
+		}
+
+
+		public Matrix magic(int size)
+		{
+			Matrix temp = new Matrix(size, size);
+			if (size % 2 == 1)
+			{
+				if (size == 1)
+				{
+					temp.setElement(1, 1, 1);
+					return temp;
+				}
+				bool donefor = false;
+				int r = 0;
+				int c = (size - 1) / 2;
+				temp.setElement(1, r + 1, c + 1);
+				for (int i = 2; i <= size * size; i++)
+				{
+					while (donefor == false)
+					{
+						r--;
+						c++;
+						if (r < 0) { r += size; }
+						else if (r >= size) r -= size;
+						if (c >= size) c -= size;
+						else if (c < 0) c += size;
+						if (temp.getElement(r + 1, c + 1) != 0)
+						{
+							r += 2;
+							c--;
+						}
+						if (r < 0) { r += size; }
+						else if (r >= size) r -= size;
+						if (c >= size) c -= size;
+						else if (c < 0) c += size;
+						if (temp.getElement(r + 1, c + 1) == 0) donefor = true;
+					}
+					temp.setElement(i, r + 1, c + 1);
+					donefor = false;
+				}
+
+			}
+			else if (size % 4 == 0)// for matrices having number of rows divisible by 4
+			{
+				int k = 1;
+				Matrix x1 = new Matrix(size, size);
+				Matrix x2 = new Matrix(size, size);
+				for (int i = 0; i < size; i++)
+				{
+					for (int j = 0; j < size; j++, k++)
+					{
+						x1.setElement(k, i + 1, j + 1);
+					}
+				}
+				k = size * size;
+				for (int i = 0; i < size; i++)
+				{
+					for (int j = 0; j < size; j++)
+					{
+						x2.setElement(k, i + 1, j + 1);
+						k--;
+					}
+				}
+				Console.WriteLine("");
+				for (int i = 0; i < size; i++)
+				{
+					for (int j = 0; j < size; j++)
+					{
+						if (i == j)
+							temp.setElement(1, i + 1, j + 1);
+						else if (i == size - j - 1) temp.setElement(1, i + 1, j + 1);
+						else temp.setElement(0, i + 1, j + 1);
+					}
+				}
+				Console.WriteLine("");
+				for (int i = 0; i < size; i++)
+				{
+					for (int j = 0; j < size; j++)
+					{
+						if (temp.getElement(i + 1, j + 1) == 1) temp.setElement(x1.getElement(i + 1, j + 1), i + 1, j + 1);
+						else temp.setElement(x2.getElement(i + 1, j + 1), i + 1, j + 1);
+					}
+				}
+			}
+			else // for magic matrices for number of even rows not divisible by 4
+			{
+				if (size == 2)
+				{
+					Console.WriteLine("Magic Matrix does not exist");
+					return temp;
+				}
+				int r = size / 2;
+				Matrix m1 = new Matrix(r, r);
+				Matrix m2 = new Matrix(r, r);
+				Matrix m3 = new Matrix(r, r);
+				Matrix m4 = new Matrix(r, r);
+				m1 = m1.magic(r);
+				Matrix i1 = new Matrix(r, r);
+				for (int i = 0; i < r; i++)
+				{
+					for (int j = 0; j < r; j++)
+					{
+						i1.setElement(r * r, i + 1, j + 1);
+					}
+				}
+				m2 = m1 + i1;
+				m3 = m1 + i1 + i1;
+				m4 = m1 + i1 + i1 + i1;
+				temp = Matrixbuilder(m1, m4, m3, m2);
+				for (int i = 0; i < r; i++)
+				{
+					for (int j = 0; j < (r + 1) / 2; j++)
+					{
+						if (i == (r - 1) / 2 && j == 0)
+						{
+							continue;
+						}
+						else if (i != (r - 1) / 2 && j == (r - 1) / 2)
+						{
+							continue;
+						}
+						else
+						{
+							double tempnum = temp.getElement(i + 1, j + 1);
+							temp.setElement(temp.getElement(i + r + 1, j + 1), i + 1, j + 1);
+							temp.setElement(tempnum, i + r + 1, j + 1);
+						}
+					}
+					for (int j = 2 * r - (r - 3) / 2; j < 2 * r; j++)
+					{
+						double tempnum = temp.getElement(i + 1, j + 1);
+						temp.setElement(temp.getElement(i + r + 1, j + 1), i + 1, j + 1);
+						temp.setElement(tempnum, i + r + 1, j + 1);
+					}
+				}
+			}
+			return temp;
+		}
+
+
+
+		private void numberswap(double x1, double x2)
+		{
+			double temp = x1;
+			x1 = x2;
+			x2 = temp;
+		}
 
 
 		//code for magice matrix
@@ -197,15 +379,15 @@ namespace DataTypeSpace
 		// vector solving code
 		public double dotproduct(Matrix m1, Matrix m2)
 		{
-			if (m1.getRows() != m2.getRows() || m1.getColumns() != 1 || m2.getColumns() != 1)
+			if (m1.getColumns() != m2.getColumns() || m1.getRows() != 1 || m2.getRows() != 1)
 			{
 				Console.WriteLine("Sorry dot product not possible");
 				return 0;
 			}
 			double dotp = 0;
-			for (int i = 0; i < m1.getRows(); i++)
+			for (int i = 0; i < m1.getColumns(); i++)
 			{
-				dotp += m1.getElement(i + 1, 1) * m2.getElement(i + 1, 1);
+				dotp += m1.getElement(1, i+1) * m2.getElement(1,i+ 1);
 			}
 			return dotp;
 		}

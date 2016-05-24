@@ -16,6 +16,8 @@ using Org.Apache.Http.Protocol;
 using Javax.Crypto;
 using System.Security.Cryptography;
 using Android.Nfc.Tech;
+using Android.OS;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace CommandUnderstander
 {
@@ -127,7 +129,7 @@ namespace CommandUnderstander
 				}
 			}    // end if for tan
 
-			if (LHS == "arcCos") {
+			if (LHS == "arcÇos") {
 				if (rexp.getExpType () == 1) {
 					Processed = false;
 					TheMessageHandler.MessagePrinter.Print ("Invalid Operation");
@@ -564,6 +566,22 @@ namespace CommandUnderstander
 
 			}
 
+			if (LHS == "magic") {
+				if (rexp.getExpType () == 1) {
+					Processed = false;
+					TheMessageHandler.MessagePrinter.Print ("Invalid Arguments");
+				} else {
+					Matrix mat = new Matrix ();
+					int size = (int)(rexp.getNumber ().getNumber ());
+					mat = mat.magic (size);
+					mat.setTag (autoNamer ());
+					if (rLHS.Contains ("-")) {
+						mat = mat * -1;
+					}
+					solution = new Expression (mat);
+				}
+			}
+
 			}    //end observer
 			
 
@@ -578,7 +596,7 @@ namespace CommandUnderstander
 			theFunctionList.Add ("tan");
 			theFunctionList.Add ("arctan");
 			theFunctionList.Add ("arcSin");
-			theFunctionList.Add ("arcCos");
+			theFunctionList.Add ("arcÇos");
 			theFunctionList.Add ("sec");
 			theFunctionList.Add ("cosec");
 			theFunctionList.Add ("cot"); 
@@ -588,9 +606,19 @@ namespace CommandUnderstander
 			theFunctionList.Add ("sinh");
 			theFunctionList.Add ("cosh");
 			theFunctionList.Add ("tanh"); 
+			theFunctionList.Add ("nCr");
+			theFunctionList.Add ("nPr"); 
 			theFunctionList.Add ("ceil");
 			theFunctionList.Add ("floor");
-			theFunctionList.Add ("round"); 
+			theFunctionList.Add ("round");
+			return theFunctionList;
+		}
+
+		public static List<string> IntelligenceBinFunctionList()
+		{
+			List<string> theFunctionList = new List<string> ();
+			theFunctionList.Add ("P");
+			theFunctionList.Add ("C");
 			return theFunctionList;
 		}
 
@@ -605,6 +633,7 @@ namespace CommandUnderstander
 			theFunctionList.Add ("Reduced\n  Row\n  Echelon");
 			theFunctionList.Add ("Row\n  Echelon"); 
 			theFunctionList.Add ("Rank"); 
+			theFunctionList.Add ("Magic");
 			return theFunctionList;
 		}
 
@@ -635,10 +664,24 @@ namespace CommandUnderstander
 				result = "identity";
 			} else if (exp == "Rank") {
 				result = "rank";
+			} else if (exp == "Magic") {
+				result = "magic";
 			}
 			return result;
 		}
 
+		public static string binCommandInputManager(string exp)
+		{
+			string ans = "";
+			if (exp == "nPr") {
+				ans = "P";
+			} else if (exp == "nCr") {
+				ans = "C";
+			} else {
+				ans = exp; 
+			}
+			return ans;
+		}
 		public static List<string> IntelligenceMatricFunctionList ()
 		{
 			List<string> theFunctionList = new List<string>();
@@ -650,6 +693,7 @@ namespace CommandUnderstander
 			theFunctionList.Add ("ref"); 
 			theFunctionList.Add ("identity"); 
 			theFunctionList.Add ("rank"); 
+			theFunctionList.Add ("magic"); 
 			return theFunctionList;
 		}
 

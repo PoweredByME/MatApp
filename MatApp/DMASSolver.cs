@@ -9,11 +9,8 @@ using CommandUnderstander;
 /// THis deals with the mathematical equations (arithematic) in 
 /// DMAS.
 /// </summary>
-using System.Threading;
-using Android.Views;
-using Android.Text.Util;
-using Android.Text;
 using Java.Security;
+using System.Text;
 
 
 namespace EquationSolver
@@ -26,7 +23,12 @@ namespace EquationSolver
 		Expression Solution;
 
 		public bool isProcessed () => Processed;
-		public Expression getSolution() => Solution;
+		public Expression getSolution()
+		{
+			theBatch.RemoveRange (0,theBatch.Count);
+			theExpressionList.RemoveRange (0, theExpressionList.Count);
+			return Solution;
+		}
 		public DMASSolver (List<Expression> theExpressionList, List<string>theBatch)
 		{
 			this.theExpressionList = theExpressionList;
@@ -64,11 +66,13 @@ namespace EquationSolver
 			else {     //if there is a mathematical expression like a+ a
 				if(UnitaryOperators ()){
 				if(CommandSolver ()){
+			      if(binCommandOperator ()){
 				   if(Power()){
 					 if (Division ()) {
-								if (Multiply ()) {
-									if (Add ()) {
-										Solution = theExpressionList [theExpressionList.IndexOf (getExpression (theBatch [0].TrimStart ("-".ToCharArray ())))];
+									if (Multiply ()) {
+										if (Add ()) {
+											Solution = theExpressionList [theExpressionList.IndexOf (getExpression (theBatch [0].TrimStart ("-".ToCharArray ())))];
+										}
 									}
 								}
 							}
@@ -452,20 +456,53 @@ namespace EquationSolver
             
 		}
 
-		bool binCommandSolver()
+
+		// method for binary command solviong like nPr
+
+		bool binCommandOperator()
 		{
 			bool solved = true;
 			int counter = 0;
 			while (counter < theBatch.Count) {
-				//string theOperator = th
+				string x = theBatch [counter];
+				if (Checker.isBinCommand (x)) {
+					if (counter == 0) {
+						TheMessageHandler.MessagePrinter.Print ("Invalid operation");
+						Processed = false;
+						solved = false;
+						break;
+					}
+					string lhs = theBatch [counter - 1];
+					string rhs = theBatch [counter + 1];
+					Expression lexp = new Expression (getExpression (lhs.TrimStart ("-".ToCharArray ())));
+					Expression rexp = new Expression (getExpression (rhs.TrimStart ("-".ToCharArray ())));
+					binCUnderstander sol = new binCUnderstander (lhs, x, rhs, lexp, rexp);
+					if (sol.isProcessed ()) {
+						Expression ans = new Expression (sol.getSolution ());
+						theExpressionList.Add (ans);
+						theBatch [counter - 1] = ans.getTag ();
+						theBatch.RemoveRange (counter, 2);
+						counter = 0;
+					} else {
+						Processed = false;
+						solved = false;
+						break;
+					}
+				}
+				counter++;
 			}
 			return solved;
 		}
 
+		// method for binary command solviong like nPr
 
-		double Factorial (double num){
-			if (num == 1) {
-				return num;
+
+
+
+
+		public static double Factorial (double num){
+			if (num == 0) {
+				return (1);
 			} else {
 				return (num * Factorial (num - 1));
 			}

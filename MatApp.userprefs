@@ -1,14 +1,10 @@
 ﻿<Properties StartupItem="MatApp/MatApp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="Android.Nexus 4 (Lollipop)" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MatApp/MainActivity.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 7 (Marshmallow)" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MatApp/Intelligence.cs">
     <Files>
-      <File FileName="MatApp/StaticClasses.cs" Line="1" Column="1" />
-      <File FileName="MatApp/eUnderstander.cs" Line="1" Column="1" />
-      <File FileName="MatApp/StringWatch.cs" Line="1" Column="1" />
-      <File FileName="MatApp/vUnderstander.cs" Line="1" Column="1" />
-      <File FileName="MatApp/DataTypeSpace.cs" Line="1" Column="1" />
-      <File FileName="MatApp/cUnderstander.cs" Line="1" Column="1" />
-      <File FileName="MatApp/MainActivity.cs" Line="97" Column="65" />
+      <File FileName="MatApp/MainActivity.cs" Line="254" Column="56" />
+      <File FileName="MatApp/cUnderstander.cs" Line="681" Column="15" />
+      <File FileName="MatApp/Intelligence.cs" Line="56" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
@@ -18,7 +14,7 @@
       <Breakpoint file="/Users/apple/Projects/MatApp/MatApp/StringWatch.cs" line="58" column="1" />
       <Breakpoint file="/Users/apple/Projects/MatApp/MatApp/MainActivity.cs" line="215" column="1" />
       <Breakpoint file="/Users/apple/Projects/MatApp/MatApp/MainActivity.cs" line="216" column="1" />
-      <Breakpoint file="/Users/apple/Projects/MatApp/MatApp/StaticClasses.cs" line="99" column="1" />
+      <Breakpoint file="/Users/apple/Projects/MatApp/MatApp/StaticClasses.cs" line="104" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

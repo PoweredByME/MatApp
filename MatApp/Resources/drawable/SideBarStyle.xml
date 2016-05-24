@@ -4,10 +4,10 @@
 <solid android:color = "#888888"/>
 
 <gradient
-android:startColor = "#9C9C9C"
-android:endColor = "#888888"
+android:startColor = "#F2F2F2"
+android:endColor = "#B1B1B1"
 android:type = "linear"
-android:angle = "0"
+android:angle = "180"
 >
 
 </gradient>
